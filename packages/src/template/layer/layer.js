@@ -5,13 +5,13 @@ import {
     ObjectType, 
     BooleanType, 
     ArrayNumberType,
-    StringNumberType
+    ExpressionType
 } from '../types/types';
 
 export const layer = {
     id:             StringType,
     type:           StringType,
-    filter:         StringNumberType,
+    filter:         ExpressionType,
     layout:         ObjectType,
     maxzoom:        NumberType,
     metadata:       UnknowType,
