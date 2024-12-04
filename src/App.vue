@@ -8,10 +8,11 @@ import '@cdyw/vue3-mapbox-view/dist/style.css';
 
 import { mapLayerList } from '../packages/src/data';
 import MapboxViewPanel from '../packages/src/MapboxViewPanel.vue';
+import MapboxLayerManage from '../packages/src/template/MapboxLayerManage.vue';
 
 export default {
   name: 'App',
-  components: { MapboxView, MapboxViewPanel },
+  components: { MapboxView, MapboxViewPanel, MapboxLayerManage },
   setup() {
     const layerList = ref(mapLayerList);
     
@@ -39,6 +40,7 @@ export default {
 <template>
   <MapboxView :loadDem="true" :mapLayerList="layerList" @mapLoaded="mapLoaded"></MapboxView>
   <MapboxViewPanel v-if="loaded" :mapLayerList="layerList" :mapIns="mapIns"></MapboxViewPanel>
+  <MapboxLayerManage v-if="loaded" :mapIns="mapIns"></MapboxLayerManage>
 </template>
 
 <style scoped>
