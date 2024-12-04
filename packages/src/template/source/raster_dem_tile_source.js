@@ -1,12 +1,23 @@
+import {
+    UnknowType, 
+    StringType, 
+    NumberType,
+    ArrayType,
+    ObjectType, 
+    BooleanType, 
+    ArrayStringType,
+    Vecter4Type
+} from '../types/types';
+
 export const raster_title_source = {
     type:           'raster-dem',
-    attribution:    { type: String },
-    bounds:         { type: [Array, Number] },
-    encoding:       { type: Array },
-    minzoom:        { type: Number },
-    maxzoom:        { type: Number },
-    tiles:          { type: [Array, String] },
-    tileSize:       { type: Number }
-    url:            { type: String },
-    volatile:       { type: Boolean },
+    attribution:    StringType,
+    bounds:         Vecter4Type,
+    encoding:       ArrayType,
+    minzoom:        NumberType,
+    maxzoom:        NumberType,
+    tiles:          ArrayStringType,
+    tileSize:       NumberType
+    url:            StringType,
+    volatile:       BooleanType,
 }

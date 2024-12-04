@@ -1,19 +1,29 @@
-export const vector_title_source = {
+import {
+    UnknowType, 
+    StringType, 
+    NumberType,
+    ObjectType, 
+    BooleanType, 
+    ArrayNumberType,
+    ExpressionType
+} from '../types/types';
+
+export const geojson_title_source = {
     type:               'geojson',
-    attribution:        { type: String },
-    buffer:             { type: Number },
-    cluster:            { type: Boolean },
-    clusterMaxZoom:     { type: Number },
-    clusterMinPoints:   { type: Number },
-    clusterProperties:  { type: Object },
-    clusterRadius:      { type: Number },
-    data:               { type: Object },
-    dynamic:            { type: Boolean },
-    filter:             { type: Object },
-    generateId:         { type: Boolean },
-    lineMetrics:        { type: Boolean },
-    minzoom:            { type: Number },
-    maxzoom:            { type: Number },
-    promoteId:          { type: Object },
-    tolerance:          { type: Number }
+    attribution:        StringType,
+    buffer:             NumberType,
+    cluster:            BooleanType,
+    clusterMaxZoom:     NumberType,
+    clusterMinPoints:   NumberType,
+    clusterProperties:  ObjectType,
+    clusterRadius:      NumberType,
+    data:               ObjectType,
+    dynamic:            BooleanType,
+    filter:             ObjectType,
+    generateId:         BooleanType,
+    lineMetrics:        BooleanType,
+    minzoom:            NumberType,
+    maxzoom:            NumberType,
+    promoteId:          ObjectType,
+    tolerance:          NumberType
 }

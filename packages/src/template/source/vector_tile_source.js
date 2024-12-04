@@ -1,12 +1,22 @@
+import {
+    UnknowType, 
+    StringType, 
+    NumberType,
+    ObjectType, 
+    BooleanType, 
+    ArrayStringType,
+    Vecter4Type
+} from '../types/types';
+
 export const vector_title_source = {
-    type: 'vector',
-    attribution: { type: String },
-    bounds:      { type: [Array, Number] },
-    minzoom:     { type: Number },
-    maxzoom:     { type: Number },
-    promoteId:   { type: Object },
-    tiles:       { type: [Array, String] },
-    url:         { type: String },
-    volatile:    { type: Boolean },
-    tileSize:    { type: Number }
+    type:       'vector',
+    attribution: StringType,
+    bounds:      Vecter4Type,
+    minzoom:     NumberType,
+    maxzoom:     NumberType,
+    promoteId:   ObjectType,
+    tiles:       ArrayStringType,
+    url:         StringType,
+    volatile:    BooleanType,
+    tileSize:    NumberType
 }

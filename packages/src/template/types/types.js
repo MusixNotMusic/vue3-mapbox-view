@@ -1,12 +1,11 @@
-export const UnknowType = { type: undefined };
-export const StringType = { type: String };
-export const NumberType = { type: Number };
-export const BooleanType = { type: Boolean };
-export const ObjectType =  { type: Object };
-export const ArrayStringType = { type: [Array, String] };
-export const ArrayNumberType = { type: [Array, Number] };
-export const ArrayArrayStringType = { type: [Array, Array, Number] };
-export const ArrayArrayNumberType = { type: [Array, Array, Number] };
+export const UnknowType =       { type: undefined };
+export const StringType =       { type: String };
+export const NumberType =       { type: Number };
+export const BooleanType =      { type: Boolean };
+export const ObjectType =       { type: Object };
+export const ArrayType =        { type: Array };
+export const ArrayStringType =  { type: [Array, String] };
+export const ArrayNumberType =  { type: [Array, Number] };
 
 
 // Image
