@@ -1,8 +1,11 @@
 import {
     UnknowType, 
-    StringType, 
+    StringType,
+    LayerType,
     NumberType,
-    ObjectType, 
+    ObjectType,
+    LayoutType,
+    PaintType,
     BooleanType, 
     ArrayNumberType,
     ExpressionType
@@ -10,13 +13,13 @@ import {
 
 export const layer = {
     id:             StringType,
-    type:           StringType,
+    type:           LayerType,
     filter:         ExpressionType,
-    layout:         ObjectType,
+    layout:         LayoutType,
     maxzoom:        NumberType,
     metadata:       UnknowType,
     minzoom:        NumberType,
-    paint:          ObjectType,
+    paint:          PaintType,
     slot:           StringType,
     source:         StringType,
     "source-layer": StringType,

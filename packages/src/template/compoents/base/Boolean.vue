@@ -1,7 +1,8 @@
 <template>
-    <el-switch v-model="value"  @change="change"></el-switch>
+    <el-switch v-model="input"  @change="change"></el-switch>
 </template>
 <script>
+import { shallowRef, watch } from "vue";
 export default {
     name: 'Boolean',
     props: {

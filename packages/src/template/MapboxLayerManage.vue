@@ -1,11 +1,11 @@
 <template>
-  <div class="mapbox-layer-manage" :style="customStyle">
+  <div class="mapbox-layer-manage" :style="customStyle" id="mp-layer-scroll">
     <!-- <div v-for="(layer, index) in layerList" :key="index">
       <div class="title">{{ layer.id }}</div>
     </div> -->
     <el-collapse  v-model="activeNames" @change="() => {}">
       <el-collapse-item 
-        v-for="(layer, index) in layerList.slice(0, 1)" 
+        v-for="(layer, index) in layerList" 
         :key="index"
         :name="layer.id">
         <template #title>
@@ -23,6 +23,7 @@
 
 <script >
 import { ref, watch, onMounted, onUnmounted, toRaw } from "vue";
+import Scrollbar from 'smooth-scrollbar';
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
 import Layer from './compoents/layer.vue';
@@ -64,6 +65,7 @@ export default {
    
 
     onMounted(() => {
+      Scrollbar.init(document.querySelector('#mp-layer-scroll'));
       loadLayer();
     });
 
@@ -97,6 +99,10 @@ export default {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.65);
+
+  max-height: 80vh;
+  overflow-y: auto;
+
   .title {
     display: flex;
     align-items: center;
@@ -107,5 +113,13 @@ export default {
       font-size: 14px;
     }
   }
+}
+
+:deep(.scrollbar-thumb) {
+  width: 3px;
+}
+
+:deep(.scrollbar-track-y) {
+  width: 3px;
 }
 </style>

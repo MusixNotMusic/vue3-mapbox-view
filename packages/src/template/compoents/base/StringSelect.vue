@@ -1,13 +1,18 @@
 <template>
-    <el-color-picker v-model="input" show-alpha  @change="change"></el-color-picker>
+    <el-select v-model="input" style="width: 200px" @change="change">
+        <el-option v-for="(item, index) in list" :key="index" :label="item" :value="item"></el-option>
+    </el-select>
 </template>
 <script>
 import { shallowRef, watch } from "vue";
 export default {
-    name: 'Color',
+    name: 'String',
     props: {
         modelValue : {
-            type: Number,
+            type: String,
+            require: true
+        },
+        list: {
             require: true
         }
     },

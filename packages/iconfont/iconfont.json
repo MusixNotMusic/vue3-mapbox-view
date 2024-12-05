@@ -112,8 +112,8 @@
     },
     {
       "icon_id": "873510",
-      "name": "heatMap",
-      "font_class": "heatMap",
+      "name": "heatmap",
+      "font_class": "heatmap",
       "unicode": "e628",
       "unicode_decimal": 58920
     },

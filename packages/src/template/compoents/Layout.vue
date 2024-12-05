@@ -1,7 +1,7 @@
 <template>
   <div class="mp-layer-paint-layout-style" :style="customStyle">
     <div class="mp-layer-paint-layout-content">
-      <span class="tag">paint</span>
+      <span class="tag">layout</span>
       <div class="mp-key-value" v-for="(value, key, index) in inputLayout" :key="index">
         <label for="">
             <span>{{key}}</span>
@@ -13,7 +13,7 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list"></component>
         </template>
       </div>
     </div>
@@ -21,18 +21,19 @@
 </template>
 
 <script >
-import { reactive, watch, onMounted, onUnmounted, toRaw } from "vue";
-import { TemplateLayer, styles } from '../layer'
+import { ref, onMounted, onUnmounted } from "vue";
 
 export default {
   name: "Layout",
   components: {},
   props: {
-    inputLayout: {
+    modelValue: {
       require: true
     }
   },
   setup(props, { emit }) {
+
+    const inputLayout = ref(props.modelValue);
 
     onMounted(() => {
     });
@@ -42,7 +43,7 @@ export default {
     })
 
     return {
-      layerEntries,
+      inputLayout
     };
   },
 };
@@ -51,17 +52,19 @@ export default {
 <style lang="scss" scoped>
 
 .mp-layer-paint-layout-style {
-  margin: 10px;
+  width: -webkit-fill-available;
+  margin: 0 10px 10px 0px;
   .mp-layer-paint-layout-content {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: content-box;
     position: relative;
-    padding: 20px 0px;
+    padding: 10px 0px;
     display: flex;
     flex-direction: column;
     row-gap: 5px;
+    min-height: 10px;
     .tag {
       display: inline-block;
       position: absolute;
@@ -69,13 +72,13 @@ export default {
       right: 0px;
       font-size: 12px;
       color: #fff;
-      background: rgb(226, 59, 59);
+      background: rgb(87, 78, 224);
       border-top-right-radius: 4px;
       padding: 1px 2px;
     }
   }
   .mp-key-value {
-    margin-left: 20px;
+    margin-left: 10px;
     height: 32px;
     display: flex;
     column-gap: 5px;

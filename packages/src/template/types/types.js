@@ -1,5 +1,11 @@
 import String  from '../compoents/base/String.Vue';
 import Number  from '../compoents/base/Number.Vue';
+import Color from '../compoents/base/Color.Vue';
+import StringSelect from '../compoents/base/StringSelect.Vue';
+
+
+import Layout  from '../compoents/Layout.Vue';
+import Paint  from '../compoents/Paint.Vue';
 
 
 export class Type {
@@ -77,9 +83,35 @@ export class ArrayNumberType extends Type{
     }
 }
 
+/**
+ * layer layout 
+ */
+export class LayoutType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+        this.component = Layout;
+    }
+}
+
+/**
+ * layer paint 
+ */
+export class PaintType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+        this.component = Paint;
+    }
+}
+
 
 // Image
-export const ImageType =  { type: Image };
+export class ImageType{
+    constructor() {
+        this.value = '';
+    }
+}
 
 export class TransitionType{
     constructor() {
@@ -88,9 +120,11 @@ export class TransitionType{
     }
 }
 
-export class ColorType {
+export class ColorType extends Type{
     constructor() {
+        super();
         this.value = '#fff';
+        this.component = Color;
     }
 }
 
@@ -145,7 +179,19 @@ export class AroundAnchorType {
 export class VisibilityType {
     constructor() {
         this.value = 'visible';
-        this.list = ['visible', 'none']
+        this.list = ['visible', 'none'],
+        this.component = StringSelect;
+    }
+}
+
+// layer type
+
+export class LayerType extends Type {
+    constructor() {
+        super();
+        this.value = 'fill';
+        this.list = [ 'fill', 'line', 'symbol', 'circle', 'heatmap','fill-extrusion', 'raster', 'raster-particle', 'hillshade', 'model', 'background', 'sky'],
+        this.component = StringSelect;
     }
 }
 

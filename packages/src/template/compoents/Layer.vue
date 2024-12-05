@@ -13,7 +13,7 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list"></component>
         </template>
       </div>
     </div>
@@ -23,6 +23,7 @@
 <script >
 import { reactive, watch, onMounted, onUnmounted, toRaw } from "vue";
 import { TemplateLayer, styles } from '../layer'
+import { cloneDeep } from 'lodash'
 
 export default {
   name: "Layer",
@@ -44,11 +45,18 @@ export default {
     })
 
     const transform = (template, origin, target) => {
+      template = cloneDeep(template);
       Object.entries(template).forEach(([key, value]) => {
-        template[key] = new value();
-        if(origin[key]) {
-          template[key].setValue(origin[key]);
-          target[key] = template[key];
+        if (value.constructor instanceof Function ) {
+          console.log('value ==>', value);
+          template[key] = new value();
+
+          if(origin[key]) {
+            if (template[key] && template[key].setValue) {
+              template[key].setValue(origin[key]);
+            }
+            target[key] = template[key];
+          }
         }
       })
     }
@@ -77,7 +85,7 @@ export default {
 
       let layout = props.inputLayer.layout;
       let paint  = props.inputLayer.paint;
-      
+
       transform(LayoutTemplate, layout, layoutRef);
       transform(PaintTemplate, paint, paintRef);
     }
@@ -126,7 +134,6 @@ export default {
   }
   .mp-key-value {
     margin-left: 20px;
-    height: 32px;
     display: flex;
     column-gap: 5px;
     label {
