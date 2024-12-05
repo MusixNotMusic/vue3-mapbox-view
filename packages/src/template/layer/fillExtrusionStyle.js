@@ -10,7 +10,6 @@ import {
     ScreenAnchorType,
     Vecter2Type,
     VisibilityType,
-    ScreenAnchorType,
     ExpressionType,
 } from '../types/types';
 

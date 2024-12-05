@@ -4,11 +4,11 @@ import {
     NumberType, 
     BooleanType, 
     Vecter2Type,
+    ColorType,
     ExpressionType,
     TransitionType,
     ArrayNumberType,
     ArrayStringType,
-    StringNumberType,
     VisibilityType,
     ScreenAnchorType,
 

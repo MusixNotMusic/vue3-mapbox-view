@@ -5,7 +5,7 @@
     </div> -->
     <el-collapse  v-model="activeNames" @change="() => {}">
       <el-collapse-item 
-        v-for="(layer, index) in layerList.slice(0, 1)" 
+        v-for="(layer, index) in layerList" 
         :key="index"
         :name="layer.id">
         <template #title>
@@ -15,7 +15,6 @@
             <span class="text">{{layer.id }}</span>
           </div>
         </template>
-        <Layer :inputLayer="layer"></Layer>
       </el-collapse-item>
     </el-collapse >
   </div>
@@ -25,15 +24,11 @@
 import { ref, watch, onMounted, onUnmounted, toRaw } from "vue";
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
-import Layer from './compoents/layer.vue';
 
 export default {
   name: "MapboxLayerManage",
-  components: { Layer },
+  components: {},
   props: {
-    customStyle: {
-
-    },
     mapIns: {
       require: true
     }

@@ -13,6 +13,10 @@ import {
     TransitionType,
     ExpressionType,
     ColorType,
+
+    IconTextFitType,
+
+    TextWriteModeType,
     
     // vecter
     Vecter2Type,
@@ -62,7 +66,7 @@ export const symbolStyle = {
         "text-variable-anchor":     AroundAnchorType, // "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right",
         "text-anchor":              AroundAnchorType, // "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right",
         "text-max-angle":           NumberType,
-        "text-writing-mode":        StringType, // "horizontal" | "vertical"
+        "text-writing-mode":        TextWriteModeType, // "horizontal" | "vertical"
         "text-rotate":              NumberType,
         "text-padding":             NumberType,
         "text-keep-upright":        BooleanType,

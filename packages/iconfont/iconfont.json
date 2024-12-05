@@ -1,0 +1,198 @@
+{
+  "id": "4770302",
+  "name": "地图图层管理",
+  "font_family": "mb-layer-manage",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6802403",
+      "name": "vector",
+      "font_class": "vector",
+      "unicode": "e779",
+      "unicode_decimal": 59257
+    },
+    {
+      "icon_id": "7009036",
+      "name": "video",
+      "font_class": "video",
+      "unicode": "e73b",
+      "unicode_decimal": 59195
+    },
+    {
+      "icon_id": "17559175",
+      "name": "geojson",
+      "font_class": "geojson",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "18126018",
+      "name": "image",
+      "font_class": "image",
+      "unicode": "e87d",
+      "unicode_decimal": 59517
+    },
+    {
+      "icon_id": "18592502",
+      "name": "raster",
+      "font_class": "raster1",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "380331",
+      "name": "center",
+      "font_class": "center",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "4767020",
+      "name": "right",
+      "font_class": "right",
+      "unicode": "e7ee",
+      "unicode_decimal": 59374
+    },
+    {
+      "icon_id": "4767021",
+      "name": "top",
+      "font_class": "top",
+      "unicode": "e7ef",
+      "unicode_decimal": 59375
+    },
+    {
+      "icon_id": "4767022",
+      "name": "left",
+      "font_class": "left",
+      "unicode": "e7f0",
+      "unicode_decimal": 59376
+    },
+    {
+      "icon_id": "4767023",
+      "name": "down",
+      "font_class": "down",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "34453010",
+      "name": "bottom-left",
+      "font_class": "bottom-left",
+      "unicode": "e83d",
+      "unicode_decimal": 59453
+    },
+    {
+      "icon_id": "34453029",
+      "name": "bottom-right",
+      "font_class": "bottom-right",
+      "unicode": "e83e",
+      "unicode_decimal": 59454
+    },
+    {
+      "icon_id": "34453074",
+      "name": "top-right",
+      "font_class": "top-right",
+      "unicode": "e847",
+      "unicode_decimal": 59463
+    },
+    {
+      "icon_id": "34453078",
+      "name": "top-left",
+      "font_class": "top-left",
+      "unicode": "e848",
+      "unicode_decimal": 59464
+    },
+    {
+      "icon_id": "755612",
+      "name": "circle",
+      "font_class": "circle",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "873510",
+      "name": "heatMap",
+      "font_class": "heatMap",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "2683503",
+      "name": "layer",
+      "font_class": "layer",
+      "unicode": "e709",
+      "unicode_decimal": 59145
+    },
+    {
+      "icon_id": "3702943",
+      "name": "fill",
+      "font_class": "fill",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "4933869",
+      "name": "symbol",
+      "font_class": "symbol",
+      "unicode": "ec1e",
+      "unicode_decimal": 60446
+    },
+    {
+      "icon_id": "4933871",
+      "name": "line",
+      "font_class": "line",
+      "unicode": "ec1f",
+      "unicode_decimal": 60447
+    },
+    {
+      "icon_id": "11348898",
+      "name": "background",
+      "font_class": "background",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "17808475",
+      "name": "fill-extrusion",
+      "font_class": "fill-extrusion",
+      "unicode": "e704",
+      "unicode_decimal": 59140
+    },
+    {
+      "icon_id": "18342644",
+      "name": "raster-particle",
+      "font_class": "raster-particle",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "19824324",
+      "name": "raster",
+      "font_class": "raster",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "32069669",
+      "name": "hillshade",
+      "font_class": "hillshade",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "40611740",
+      "name": "model",
+      "font_class": "model",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "40755807",
+      "name": "sky",
+      "font_class": "sky",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    }
+  ]
+}

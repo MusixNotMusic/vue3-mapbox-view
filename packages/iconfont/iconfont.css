@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "mb-layer-manage"; /* Project id 4770302 */
+  src: url('iconfont.woff2?t=1733366281183') format('woff2'),
+       url('iconfont.woff?t=1733366281183') format('woff'),
+       url('iconfont.ttf?t=1733366281183') format('truetype');
+}
+
+.mb-icon {
+  font-family: "mb-layer-manage" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-vector:before {
+  content: "\e779";
+}
+
+.icon-video:before {
+  content: "\e73b";
+}
+
+.icon-geojson:before {
+  content: "\e602";
+}
+
+.icon-image:before {
+  content: "\e87d";
+}
+
+.icon-raster1:before {
+  content: "\e691";
+}
+
+.icon-center:before {
+  content: "\e63f";
+}
+
+.icon-right:before {
+  content: "\e7ee";
+}
+
+.icon-top:before {
+  content: "\e7ef";
+}
+
+.icon-left:before {
+  content: "\e7f0";
+}
+
+.icon-down:before {
+  content: "\e7f1";
+}
+
+.icon-bottom-left:before {
+  content: "\e83d";
+}
+
+.icon-bottom-right:before {
+  content: "\e83e";
+}
+
+.icon-top-right:before {
+  content: "\e847";
+}
+
+.icon-top-left:before {
+  content: "\e848";
+}
+
+.icon-circle:before {
+  content: "\e64f";
+}
+
+.icon-heatMap:before {
+  content: "\e628";
+}
+
+.icon-layer:before {
+  content: "\e709";
+}
+
+.icon-fill:before {
+  content: "\e664";
+}
+
+.icon-symbol:before {
+  content: "\ec1e";
+}
+
+.icon-line:before {
+  content: "\ec1f";
+}
+
+.icon-background:before {
+  content: "\e60b";
+}
+
+.icon-fill-extrusion:before {
+  content: "\e704";
+}
+
+.icon-raster-particle:before {
+  content: "\e638";
+}
+
+.icon-raster:before {
+  content: "\e600";
+}
+
+.icon-hillshade:before {
+  content: "\e625";
+}
+
+.icon-model:before {
+  content: "\e601";
+}
+
+.icon-sky:before {
+  content: "\e6a4";
+}
+

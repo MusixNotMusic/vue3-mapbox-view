@@ -27,5 +27,5 @@ export const backgroundStyle = {
     //     "background-color-transition":               TransitionType,
     //     "background-opacity-transition":             TransitionType,
     //     "background-emissive-strength-transition":   TransitionType
-    // }
+    }
 }

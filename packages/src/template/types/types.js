@@ -1,11 +1,81 @@
-export const UnknowType =       { type: undefined };
-export const StringType =       { type: String };
-export const NumberType =       { type: Number };
-export const BooleanType =      { type: Boolean };
-export const ObjectType =       { type: Object };
-export const ArrayType =        { type: Array };
-export const ArrayStringType =  { type: [Array, String] };
-export const ArrayNumberType =  { type: [Array, Number] };
+import String  from '../compoents/base/String.Vue';
+import Number  from '../compoents/base/Number.Vue';
+
+
+export class Type {
+    constructor() {
+        this.value = null;
+    }
+    setValue (val) {
+        if (this.value !== val) {
+            this.value = val;
+        }
+    }
+
+    // get value() {
+    //     return this.value
+    // }
+}
+
+export class UnknowType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
+
+export class StringType extends Type{
+    constructor() {
+        super();
+        this.value = 'a';
+        this.component = String;
+    }
+}
+
+export class NumberType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+        this.component = Number;
+    }
+}
+
+
+export class BooleanType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
+
+export class ObjectType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
+
+
+export class ArrayType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
+
+export class ArrayStringType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
+
+export class ArrayNumberType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+    }
+}
 
 
 // Image
@@ -20,13 +90,13 @@ export class TransitionType{
 
 export class ColorType {
     constructor() {
-        this.rgba = '#fff';
+        this.value = '#fff';
     }
 }
 
 export class ExpressionType {
     constructor() {
-        this.rgba = '#fff';
+        this.value = '#fff';
     }
 }
 
@@ -99,10 +169,10 @@ export class LineCapType {
 
 // Symbol
 //https://docs.mapbox.com/style-spec/reference/layers/#layout-line-line-join
-export class LineJoinType {
+export class TextWriteModeType {
     constructor() {
-        this.value = 'miter';
-        this.list = ['bevel', 'round', 'miter', 'none']
+        this.value = 'horizontal';
+        this.list = ['horizontal', 'vertical']
     }
 }
 

@@ -12,7 +12,7 @@ import {
     Vecter2Type,
     VisibilityType,
     Vecter4Type,
-    RasterTextureMapType
+    RasterTextureFilterType
 } from '../types/types';
 
 export const rasterParticlesStyle = {
