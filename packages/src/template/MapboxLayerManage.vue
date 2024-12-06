@@ -11,7 +11,7 @@
             <span class="text">{{layer.id }}</span>
           </div>
         </template>
-        <Layer :inputLayer="layer"></Layer>
+        <Layer :inputLayer="layer" :mapIns="mapIns"></Layer>
 
         <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]"></Source>
       </el-collapse-item>

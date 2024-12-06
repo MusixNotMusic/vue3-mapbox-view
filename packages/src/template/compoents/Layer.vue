@@ -13,7 +13,7 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value" :list="value.list"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list" :layerId="layerRef.id" :mapIns="mapIns"></component>
         </template>
       </div>
     </div>
@@ -31,6 +31,9 @@ export default {
   props: {
     inputLayer: {
       require: true
+    },
+    mapIns: {
+      type: Object
     }
   },
   setup(props, { emit }) {

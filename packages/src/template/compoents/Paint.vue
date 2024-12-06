@@ -27,7 +27,7 @@
 </template>
 
 <script >
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 
 export default {
   name: "Paint",
@@ -38,6 +38,12 @@ export default {
     },
     modelValue: {
       require: true
+    },
+    mapIns: {
+      type: Object
+    },
+    layerId: {
+      type: String
     }
   },
   setup(props, { emit }) {
@@ -47,7 +53,20 @@ export default {
     const activeNames = ref([]);
 
     const detail = ref(false);
+
     const isTransition = ref(false);
+
+    watch(() => inputPaint, (val) => {
+      setPaintProperty(val.value);
+    }, {deep: true})
+
+    const setPaintProperty = (data) => {
+      Object.entries(data).forEach(([key, value]) => {
+        if (props.mapIns) {
+          props.mapIns.setPaintProperty(props.layerId.value, key, value.value);
+        }
+      })
+    }
 
     onMounted(() => {
     });
