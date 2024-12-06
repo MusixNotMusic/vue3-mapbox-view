@@ -1,65 +1,95 @@
 <template>
-  <div class="mapbox-layer-manage" :style="customStyle">
-    <!-- <div v-for="(layer, index) in layerList" :key="index">
-      <div class="title">{{ layer.id }}</div>
-    </div> -->
-    <el-collapse  v-model="activeNames" @change="() => {}">
-      <el-collapse-item 
-        v-for="(layer, index) in layerList" 
-        :key="index"
-        :name="layer.id">
-        <template #title>
-          <div class="title">
-            <span  class="mb-icon icon-layer"></span>
-            <!-- <span :class="['icon-' + layer.type ]" :title="layer.type"></span> -->
-            <span class="text">{{layer.id }}</span>
-          </div>
+  <div class="mp-layer-source" :style="customStyle">
+    <div class="mp-layer-content">
+      <span class="tag">数据源</span>
+      <div class="mp-key-value" v-for="(value, key, index) in sourceRef" :key="index">
+        <label for="">
+            <span>{{key}}</span>
+            <div class="line" v-if="key === 'type'"></div>
+            <span v-if="key === 'type'" 
+              class="mb-icon icon"
+              :class="['icon-' + value.value ]" 
+              :title="value.value"></span>
+        </label>
+     
+        <template v-if="value.component">
+          <component :is="value.component" v-model="value.value" :list="value.list"></component>
         </template>
-      </el-collapse-item>
-    </el-collapse >
+      </div>
+    </div>
   </div>
 </template>
 
 <script >
-import { ref, watch, onMounted, onUnmounted, toRaw } from "vue";
-import '../../iconfont/iconfont';
-import '../../iconfont/iconfont.css';
+import { reactive, watch, onMounted, onUnmounted, toRaw } from "vue";
+import { sources as TemplateSource } from '../source'
+import { cloneDeep } from 'lodash'
 
 export default {
-  name: "MapboxLayerManage",
+  name: "Layer",
   components: {},
   props: {
-    mapIns: {
+    customStyle: {
+      type: Object
+    },
+    inputSource: {
       require: true
     }
   },
   setup(props, { emit }) {
-
-    const layerList = ref([]);
-    const sourceEntries = ref({});
-    const activeNames = ref([]);
- 
-    watch(() => props.mapLayerList, (val, old) => {
+    const sourceRef = reactive({});
+    
+    watch(() => props.inputSource, (val, old) => {
       if (val !== old) {
-        transform();
+        updateSource();
       }
     })
 
+    const transform = (template, origin, target) => {
+      template = cloneDeep(template);
+      template = template[origin.type];
+      Object.entries(template).forEach(([key, value]) => {
+        if (value.constructor instanceof Function ) {
+          console.log('value ==>', value);
+          template[key] = new value();
 
-    const loadLayer = () => {
-      if (props.mapIns) {
-        const style = props.mapIns.getStyle();
-        if (style) {
-          layerList.value = toRaw(style.layers);
-          sourceEntries.value = toRaw(style.source);
+          if(origin[key]) {
+            if (template[key] && template[key].setValue) {
+              template[key].setValue(origin[key]);
+            }
+            target[key] = template[key];
+          }
         }
-      }
+      })
     }
 
-   
+    const initSource = () => {
+      transform(TemplateSource, props.inputSource, sourceRef);
+
+      console.log('sourceRef', sourceRef)
+    }
+
+    const updateSource = () => {
+
+    }
+
+    const initLayoutPaint = () => {
+      const type = props.inputSource.type;
+      const StyleTmeplate = styles[type];
+
+      const LayoutTemplate = StyleTmeplate.layout;
+      const PaintTemplate  = StyleTmeplate.paint;
+
+      let layout = props.inputSource.layout;
+      let paint  = props.inputSource.paint;
+
+      transform(LayoutTemplate, layout, layoutRef);
+      transform(PaintTemplate, paint, paintRef);
+    }
+
 
     onMounted(() => {
-      loadLayer();
+      initSource();
     });
 
     onUnmounted(() => {
@@ -67,8 +97,7 @@ export default {
     })
 
     return {
-      layerList,
-      activeNames,
+      sourceRef
     };
   },
 };
@@ -76,30 +105,57 @@ export default {
 
 <style lang="scss" scoped>
 
-.mapbox-layer-manage {
-  --mapbox-layer-manage-bg: rgba(255, 255, 255, 0.7);
-  --mapbox-layer-manage-title: rgb(48, 44, 44);
-  --mapbox-layer-manage-btn: rgba(17, 20, 73, 0.6);
-  --mapbox-layer-manage-btn-text: #fff;
-  --mapbox-layer-manage-btn-hover: rgba(67, 75, 214, 0.6);
-  --mapbox-layer-manage-btn-active: rgb(25, 106, 212);
-
-  position: fixed;
-  top: 40px;
-  left: 40px;
-  background: var(--mapbox-layer-manage-bg);
-  width: 600px;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.65);
-  .title {
+.mp-layer-source {
+  margin: 10px;
+  .mp-layer-content {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: content-box;
+    position: relative;
+    padding: 20px 0px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    row-gap: 5px;
+    .tag {
+      display: inline-block;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      font-size: 12px;
+      color: #fff;
+      background: rgb(18, 57, 187);;
+      border-top-right-radius: 4px;
+      padding: 1px 2px;
+      transform-origin: top right;
+      transform: scale(0.8);
+    }
+  }
+  .mp-key-value {
+    margin-left: 20px;
+    display: flex;
     column-gap: 5px;
-    margin-left: 5px;
-    .text {
-      font-weight: bold;
-      font-size: 14px;
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      background: #ccc;
+      height: 32px;
+      line-height: 32px;
+      padding-left:10px;
+      padding-right:5px;
+      min-width: 60px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      .icon {
+        font-size: 14px;
+      }
+
+      .line {
+        height: 32px;
+        width: 2px;
+        background: #fff;
+      }
     }
   }
 }

@@ -1,8 +1,5 @@
 <template>
   <div class="mapbox-layer-manage" :style="customStyle" id="mp-layer-scroll">
-    <!-- <div v-for="(layer, index) in layerList" :key="index">
-      <div class="title">{{ layer.id }}</div>
-    </div> -->
     <el-collapse  v-model="activeNames" @change="() => {}">
       <el-collapse-item 
         v-for="(layer, index) in layerList" 
@@ -11,11 +8,12 @@
         <template #title>
           <div class="title">
             <span  class="mb-icon icon-layer"></span>
-            <!-- <span :class="['icon-' + layer.type ]" :title="layer.type"></span> -->
             <span class="text">{{layer.id }}</span>
           </div>
         </template>
         <Layer :inputLayer="layer"></Layer>
+
+        <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]"></Source>
       </el-collapse-item>
     </el-collapse >
   </div>
@@ -24,13 +22,16 @@
 <script >
 import { ref, watch, onMounted, onUnmounted, toRaw } from "vue";
 import Scrollbar from 'smooth-scrollbar';
+import Layer from './compoents/Layer.vue';
+import Source from './compoents/Source.vue';
+
+
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
-import Layer from './compoents/layer.vue';
 
 export default {
   name: "MapboxLayerManage",
-  components: { Layer },
+  components: { Layer, Source },
   props: {
     customStyle: {
 
@@ -57,7 +58,7 @@ export default {
         const style = props.mapIns.getStyle();
         if (style) {
           layerList.value = toRaw(style.layers);
-          sourceEntries.value = toRaw(style.source);
+          sourceEntries.value = toRaw(style.sources);
         }
       }
     }
@@ -76,6 +77,7 @@ export default {
     return {
       layerList,
       activeNames,
+      sourceEntries
     };
   },
 };
@@ -95,7 +97,7 @@ export default {
   top: 40px;
   left: 40px;
   background: var(--mapbox-layer-manage-bg);
-  width: 600px;
+  width: 800px;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.65);

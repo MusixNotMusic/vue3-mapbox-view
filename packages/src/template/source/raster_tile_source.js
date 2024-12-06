@@ -8,8 +8,8 @@ import {
     Vecter4Type
 } from '../types/types';
 
-export const raster_title_source = {
-    type:           'raster',
+export const raster_tile_source = {
+    type:           StringType,
     attribution:    StringType,
     bounds:         Vecter4Type,
     experimental:   UnknowType,
@@ -17,7 +17,7 @@ export const raster_title_source = {
     maxzoom:        NumberType,
     rasterLayers:   UnknowType,
     tiles:          ArrayStringType,
-    tileSize:       NumberType
+    tileSize:       NumberType,
     url:            StringType,
     volatile:       BooleanType,
 }

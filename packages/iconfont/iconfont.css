@@ -1,16 +1,32 @@
 @font-face {
-  font-family: "mb-layer-manage"; /* Project id 4770302 */
-  src: url('iconfont.woff2?t=1733366281183') format('woff2'),
-       url('iconfont.woff?t=1733366281183') format('woff'),
-       url('iconfont.ttf?t=1733366281183') format('truetype');
+  font-family: "mb-icon"; /* Project id 4770302 */
+  src: url('iconfont.woff2?t=1733450820817') format('woff2'),
+       url('iconfont.woff?t=1733450820817') format('woff'),
+       url('iconfont.ttf?t=1733450820817') format('truetype');
 }
 
 .mb-icon {
-  font-family: "mb-layer-manage" !important;
+  font-family: "mb-icon" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-window-max:before {
+  content: "\e786";
+}
+
+.icon-view-max:before {
+  content: "\e620";
+}
+
+.icon-view-min:before {
+  content: "\e621";
+}
+
+.icon-window-min:before {
+  content: "\e6e4";
 }
 
 .icon-vector:before {

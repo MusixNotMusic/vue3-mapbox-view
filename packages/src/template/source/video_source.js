@@ -1,9 +1,10 @@
 import {
+    StringType,
     ArrayStringType, 
     Vecter4Type
 } from '../types/types';
-export const vector_title_source = {
-    type:       'video',
-    urls:        ArrayStringType,
-    bounds:      Vecter4Type
+export const video_source = {
+    type:       StringType,
+    urls:       ArrayStringType,
+    bounds:     Vecter4Type
 }

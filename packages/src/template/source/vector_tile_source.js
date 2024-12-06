@@ -8,8 +8,8 @@ import {
     Vecter4Type
 } from '../types/types';
 
-export const vector_title_source = {
-    type:       'vector',
+export const vector_tile_source = {
+    type:        StringType,
     attribution: StringType,
     bounds:      Vecter4Type,
     minzoom:     NumberType,

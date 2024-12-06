@@ -1,10 +1,38 @@
 {
   "id": "4770302",
   "name": "地图图层管理",
-  "font_family": "mb-layer-manage",
+  "font_family": "mb-icon",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "688093",
+      "name": "全屏 最大化",
+      "font_class": "window-max",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "26134385",
+      "name": "窗口最大化",
+      "font_class": "view-max",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "26134427",
+      "name": "窗口最小化",
+      "font_class": "view-min",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "32474962",
+      "name": "全屏最小化",
+      "font_class": "window-min",
+      "unicode": "e6e4",
+      "unicode_decimal": 59108
+    },
     {
       "icon_id": "6802403",
       "name": "vector",

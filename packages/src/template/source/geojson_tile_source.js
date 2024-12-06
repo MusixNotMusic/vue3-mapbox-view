@@ -9,7 +9,7 @@ import {
 } from '../types/types';
 
 export const geojson_title_source = {
-    type:               'geojson',
+    type:               StringType,
     attribution:        StringType,
     buffer:             NumberType,
     cluster:            BooleanType,

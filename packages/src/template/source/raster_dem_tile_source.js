@@ -9,15 +9,15 @@ import {
     Vecter4Type
 } from '../types/types';
 
-export const raster_title_source = {
-    type:           'raster-dem',
+export const raster_dem_tile_source = {
+    type:           StringType,
     attribution:    StringType,
     bounds:         Vecter4Type,
     encoding:       ArrayType,
     minzoom:        NumberType,
     maxzoom:        NumberType,
     tiles:          ArrayStringType,
-    tileSize:       NumberType
+    tileSize:       NumberType,
     url:            StringType,
     volatile:       BooleanType,
 }
