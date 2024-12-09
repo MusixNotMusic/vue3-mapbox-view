@@ -3,9 +3,11 @@ import Number  from '../compoents/base/Number.Vue';
 import Color from '../compoents/base/Color.Vue';
 import StringSelect from '../compoents/base/StringSelect.Vue';
 
+import Tiles from '../compoents/base/Tiles.Vue';
 
 import Layout  from '../compoents/Layout.Vue';
 import Paint  from '../compoents/Paint.Vue';
+
 
 
 export class Type {
@@ -102,6 +104,17 @@ export class PaintType extends Type{
         super();
         this.value = '';
         this.component = Paint;
+    }
+}
+
+/**
+ * tiles 
+ */
+ export class TilesType extends Type{
+    constructor() {
+        super();
+        this.value = '';
+        this.component = Tiles;
     }
 }
 

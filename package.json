@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@cdyw/vue3-mapbox-view": "^1.0.0",
+    "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "^2.9.0",
     "events": "^3.3.0",
     "lodash.clonedeep": "^4.5.0",

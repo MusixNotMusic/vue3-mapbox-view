@@ -21,7 +21,7 @@
 </template>
 
 <script >
-import { reactive, watch, onMounted, onUnmounted, toRaw } from "vue";
+import { reactive, watch, onMounted, onUnmounted, markRaw } from "vue";
 import { sources as TemplateSource } from '../source'
 import { cloneDeep } from 'lodash'
 
@@ -50,7 +50,6 @@ export default {
       template = template[origin.type];
       Object.entries(template).forEach(([key, value]) => {
         if (value.constructor instanceof Function ) {
-          console.log('value ==>', value);
           template[key] = new value();
 
           if(origin[key]) {
@@ -65,28 +64,11 @@ export default {
 
     const initSource = () => {
       transform(TemplateSource, props.inputSource, sourceRef);
-
-      console.log('sourceRef', sourceRef)
     }
 
     const updateSource = () => {
 
     }
-
-    const initLayoutPaint = () => {
-      const type = props.inputSource.type;
-      const StyleTmeplate = styles[type];
-
-      const LayoutTemplate = StyleTmeplate.layout;
-      const PaintTemplate  = StyleTmeplate.paint;
-
-      let layout = props.inputSource.layout;
-      let paint  = props.inputSource.paint;
-
-      transform(LayoutTemplate, layout, layoutRef);
-      transform(PaintTemplate, paint, paintRef);
-    }
-
 
     onMounted(() => {
       initSource();

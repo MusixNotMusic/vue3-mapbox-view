@@ -37,6 +37,7 @@ export default {
       type: Object
     },
     modelValue: {
+      type: Object,
       require: true
     },
     mapIns: {

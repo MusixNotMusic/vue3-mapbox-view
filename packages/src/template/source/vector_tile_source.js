@@ -4,7 +4,7 @@ import {
     NumberType,
     ObjectType, 
     BooleanType, 
-    ArrayStringType,
+    TilesType,
     Vecter4Type
 } from '../types/types';
 
@@ -15,7 +15,7 @@ export const vector_tile_source = {
     minzoom:     NumberType,
     maxzoom:     NumberType,
     promoteId:   ObjectType,
-    tiles:       ArrayStringType,
+    tiles:       TilesType,
     url:         StringType,
     volatile:    BooleanType,
     tileSize:    NumberType

@@ -21,7 +21,7 @@
 </template>
 
 <script >
-import { reactive, watch, onMounted, onUnmounted, toRaw } from "vue";
+import { reactive, watch, onMounted, onUnmounted, markRaw } from "vue";
 import { TemplateLayer, styles } from '../layer'
 import { cloneDeep } from 'lodash'
 
@@ -29,6 +29,9 @@ export default {
   name: "Layer",
   components: {},
   props: {
+    customStyle: {
+      type: Object
+    },
     inputLayer: {
       require: true
     },
@@ -51,7 +54,6 @@ export default {
       template = cloneDeep(template);
       Object.entries(template).forEach(([key, value]) => {
         if (value.constructor instanceof Function ) {
-          console.log('value ==>', value);
           template[key] = new value();
 
           if(origin[key]) {
@@ -71,8 +73,6 @@ export default {
 
       layerRef.layout.setValue(layoutRef);
       layerRef.paint.setValue(paintRef);
-
-      console.log('layerRef', layerRef)
     }
 
     const updateLayer = () => {

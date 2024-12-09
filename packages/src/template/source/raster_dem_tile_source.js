@@ -5,7 +5,7 @@ import {
     ArrayType,
     ObjectType, 
     BooleanType, 
-    ArrayStringType,
+    TilesType,
     Vecter4Type
 } from '../types/types';
 
@@ -16,7 +16,7 @@ export const raster_dem_tile_source = {
     encoding:       ArrayType,
     minzoom:        NumberType,
     maxzoom:        NumberType,
-    tiles:          ArrayStringType,
+    tiles:          TilesType,
     tileSize:       NumberType,
     url:            StringType,
     volatile:       BooleanType,
