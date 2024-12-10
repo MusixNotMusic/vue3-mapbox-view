@@ -1,33 +1,24 @@
 <template>
-    <div class="tiles">
-        <div class="url" v-for="(url, index) in input" :key="index">
-            <Url v-model="input[index]" @change="change">
-                <template #index><span>{{index + 1}}</span></template>
-            </Url>
-        </div>
-    </div>
+    <div class="undefine">unknow</div>
 </template>
 <script>
 import { shallowRef, watch } from "vue";
-import Url from './Url.vue'
 export default {
-    name: 'Tiles',
-    components: { Url },
+    name: 'Boolean',
     props: {
         modelValue : {
-            type: Array,
+            type: String,
             require: true
         }
     },
     setup (props, { emit }) {
-        // props.modelValue.push(props.modelValue[0])
         const input = shallowRef(props.modelValue);
 
         watch(() => props.modelValue, (val, old) => {
             if (val !== old) {
                 input.value = val;
             }
-        }, { deep: true });
+        });
 
         const change = () => {
             emit("update:modelValue", input.value);
@@ -40,9 +31,14 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.tiles {
-    width: 100%;
+<style scoped lang="scss">
+.undefine {
+    width: max-content;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 5px;
+    background: rgb(156, 152, 152);
+    color: #fff;
+    border-radius: 4px;
 }
 </style>

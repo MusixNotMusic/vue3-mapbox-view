@@ -1,8 +1,8 @@
 <template>
   <div class="mp-layer-style" :style="customStyle">
     <div class="mp-layer-content">
-      <span class="tag">图层</span>
-      <div class="mp-key-value" v-for="(value, key, index) in layerRef" :key="index">
+      <span class="tag-t-l">图层</span>
+      <div class="mp-key-value" v-for="(value, key, index) in layerRef.default" :key="index">
         <label for="">
             <span>{{key}}</span>
             <div class="line" v-if="key === 'type'"></div>
@@ -13,21 +13,46 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value" :list="value.list" :layerId="layerRef.id" :mapIns="mapIns"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list" :layerId="layerRef.default.id" :mapIns="mapIns"></component>
         </template>
       </div>
+
+      <span class="tag-b-r"  @click="showMore = !showMore">more</span>
+      <AutoHeight v-model="showMore">
+        <template #content>
+          <div class="mp-layer-content-other">
+            <div class="split-line"><span>更多配置</span></div>
+            <span class="tag-t-r" v-if="showMore" @click="showMore = !showMore">more</span>
+            <div class="mp-key-value" v-for="(value, key, index) in layerRef.other" :key="index">
+              <label>
+                  <span>{{key}}</span>
+                  <div class="line" v-if="key === 'type'"></div>
+                  <span v-if="key === 'type'" 
+                    class="mb-icon icon"
+                    :class="['icon-' + value.value ]" 
+                    :title="value.value"></span>
+              </label>
+          
+              <template v-if="value && value.component">
+                <component :is="value.component" v-model="value.value" :list="value.list"></component>
+              </template>
+            </div>
+          </div>
+        </template>
+      </AutoHeight>
     </div>
   </div>
 </template>
 
 <script >
-import { reactive, watch, onMounted, onUnmounted, markRaw } from "vue";
+import { reactive, watch, onMounted, onUnmounted, ref } from "vue";
 import { TemplateLayer, styles } from '../layer'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash';
+import AutoHeight from './transition/AutoHeight.vue';
 
 export default {
   name: "Layer",
-  components: {},
+  components: { AutoHeight },
   props: {
     customStyle: {
       type: Object
@@ -40,9 +65,11 @@ export default {
     }
   },
   setup(props, { emit }) {
-    const layerRef = reactive({});
-    const layoutRef = reactive({});
-    const paintRef = reactive({});
+    const layerRef = reactive({ default: {}, other: {}, custom: {} });
+    const layoutRef = reactive({ default: {}, other: {}, custom: {} });
+    const paintRef = reactive({ default: {}, other: {}, custom: {} });
+
+    const showMore = ref(null);
     
     watch(() => props.inputLayer, (val, old) => {
       if (val !== old) {
@@ -60,7 +87,9 @@ export default {
             if (template[key] && template[key].setValue) {
               template[key].setValue(origin[key]);
             }
-            target[key] = template[key];
+            target.default[key] = template[key];
+          } else {
+            target.other[key] = template[key];
           }
         }
       })
@@ -71,8 +100,8 @@ export default {
 
       initLayoutPaint();
 
-      layerRef.layout.setValue(layoutRef);
-      layerRef.paint.setValue(paintRef);
+      layerRef.default.layout.setValue(layoutRef);
+      layerRef.default.paint.setValue(paintRef);
     }
 
     const updateLayer = () => {
@@ -104,13 +133,14 @@ export default {
 
     return {
       layerRef,
+      showMore
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
+@use '../style.scss';
 .mp-layer-style {
   margin: 10px;
   .mp-layer-content {
@@ -120,9 +150,10 @@ export default {
     box-sizing: content-box;
     position: relative;
     padding: 20px 0px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
+    // display: flex;
+    // flex-direction: column;
+    // row-gap: 5px;
+
     .tag {
       display: inline-block;
       position: absolute;
@@ -137,10 +168,20 @@ export default {
       transform: scale(0.8);
     }
   }
+
+  .mp-layer-content-other {
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: content-box;
+    position: relative;
+  }
+  
   .mp-key-value {
     margin-left: 20px;
+    margin-bottom: 5px;
     display: flex;
     column-gap: 5px;
+    margin-top: 3px;
     label {
       display: flex;
       justify-content: space-between;

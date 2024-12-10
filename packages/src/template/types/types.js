@@ -1,14 +1,18 @@
-import String  from '../compoents/base/String.Vue';
-import Number  from '../compoents/base/Number.Vue';
-import Color from '../compoents/base/Color.Vue';
-import StringSelect from '../compoents/base/StringSelect.Vue';
+import Unknow  from '../compoents/base/Unknow.vue';
+import String  from '../compoents/base/String.vue';
+import Number  from '../compoents/base/Number.vue';
+import Boolean  from '../compoents/base/Boolean.vue';
+import Color from '../compoents/base/Color.vue';
+import StringSelect from '../compoents/base/StringSelect.vue';
 
-import ArrayString from '../compoents/base/ArrayString.Vue';
+import ArrayString from '../compoents/base/ArrayString.vue';
 
-import Tiles from '../compoents/base/Tiles.Vue';
+import Bounds  from '../compoents/base/Bounds.vue'
 
-import Layout  from '../compoents/Layout.Vue';
-import Paint  from '../compoents/Paint.Vue';
+import Tiles from '../compoents/base/Tiles.vue';
+
+import Layout  from '../compoents/Layout.vue';
+import Paint  from '../compoents/Paint.vue';
 
 import { markRaw } from 'vue';
 
@@ -33,13 +37,14 @@ export class UnknowType extends Type{
     constructor() {
         super();
         this.value = '';
+        this.component = markRaw(Unknow);
     }
 }
 
 export class StringType extends Type{
     constructor() {
         super();
-        this.value = 'a';
+        this.value = '';
         this.component = markRaw(String);
     }
 }
@@ -47,7 +52,7 @@ export class StringType extends Type{
 export class NumberType extends Type{
     constructor() {
         super();
-        this.value = '';
+        this.value = 0;
         this.component = markRaw(Number);
     }
 }
@@ -57,6 +62,7 @@ export class BooleanType extends Type{
     constructor() {
         super();
         this.value = '';
+        this.component = markRaw(Boolean);
     }
 }
 
@@ -88,6 +94,14 @@ export class ArrayNumberType extends Type{
         super();
         this.value = '';
         this.component = markRaw(ArrayString);
+    }
+}
+
+export class BoundsType extends Type{
+    constructor() {
+        super();
+        this.value = [];
+        this.component = markRaw(Bounds);
     }
 }
 

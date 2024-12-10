@@ -1,37 +1,67 @@
 <template>
   <div class="mp-layer-paint-layout-style" :style="customStyle">
-      <div class="mp-layer-paint-layout-content transition-height" :class="{open: isTransition}" @transitionend="detail = !detail ">
-        <span class="tag">layout</span>
-        <span class="mb-icon icon" :class="{'icon-view-min': !detail, 'icon-view-max': detail}" @click="isTransition = !isTransition"></span>
+    <div class="transition-height" :class="{open: detail}">
+      <div class="mp-layer-paint-layout-content transition-height-container">
+        <span class="mb-icon icon" :class="{'icon-view-min': !detail, 'icon-view-max': detail}" @click="detail = !detail"></span>
         
-        <div class="brief" v-if="!isTransition && !detail">
-          <div class="item" v-for="(value, key, index) in inputLayout" :key="index">
-            {{ key }}:{{value.value }}
-          </div>
-        </div>
-      
-          <div class="mp-kv-wrap">
-            <div class="mp-key-value" v-for="(value, key, index) in inputLayout" :key="index">
-              <label for="">
-                  <span>{{key}}</span>
-              </label>
-          
-              <template v-if="value.component">
-                <component :is="value.component" v-model="value.value" :list="value.list"></component>
-              </template>
+          <div class="brief" v-if="!detail">
+            <div class="item" v-for="(value, key, index) in inputLayout.default" :key="index">
+              {{ key }}:{{value.value }}
             </div>
           </div>
-      </div>
 
+          <AutoHeight v-model="detail">
+            <template #content>
+              <div class="mp-kv-wrap" v-if="detail">
+                <div class="mp-key-value" v-for="(value, key, index) in inputLayout.default" :key="index">
+                  <label for="">
+                      <span>{{key}}</span>
+                  </label>
+              
+                  <template v-if="value.component">
+                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </AutoHeight>
+      
+
+          <span class="tag-b-r" v-if="detail && !showMore" @click="showMore = !showMore">more</span>
+          <AutoHeight v-model="showMore">
+            <template #content>
+              <div class="mp-layer-paint-other-content">
+                <div class="split-line"><span>更多配置</span></div>
+                <span class="tag-t-r" v-if="showMore" @click="showMore = !showMore">more</span>
+                <div class="mp-key-value" v-for="(value, key, index) in inputLayout.other" :key="index">
+                  <label>
+                      <span>{{key}}</span>
+                      <div class="line" v-if="key === 'type'"></div>
+                      <span v-if="key === 'type'" 
+                        class="mb-icon icon"
+                        :class="['icon-' + value.value ]" 
+                        :title="value.value"></span>
+                  </label>
+              
+                  <template v-if="value && value.component">
+                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </AutoHeight>
+      </div>
+    </div>
   </div>
 </template>
 
 <script >
 import { ref, shallowRef, onMounted, onUnmounted } from "vue";
+import AutoHeight from './transition/AutoHeight.vue';
 
 export default {
   name: "Layout",
-  components: {},
+  components: { AutoHeight },
   props: {
     customStyle: {
       type: Object
@@ -46,6 +76,8 @@ export default {
 
     const activeNames = ref([]);
 
+    const showMore = ref(false);
+
     const detail = ref(false);
     const isTransition = ref(false);
 
@@ -59,6 +91,7 @@ export default {
     return {
       inputLayout,
       activeNames,
+      showMore,
       detail,
       isTransition
     };
@@ -67,18 +100,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@use '../style.scss';
 .mp-layer-paint-layout-style {
   width: -webkit-fill-available;
-  margin: 0 10px 10px 0px;
-  max-height: 1000px;
   transition: max-height 0.3s ease-out;
-
-  
-
   
   .mp-layer-paint-layout-content {
-    width: 100%;
+    width: calc(100% - 10px);
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: content-box;
@@ -101,6 +129,10 @@ export default {
       transform-origin: bottom right;
       transform: scale(0.6);
     }
+  }
+
+  .mp-layer-paint-other-content {
+    position: relative;
   }
  
   .mp-key-value {
@@ -173,13 +205,13 @@ export default {
   color:rgb(40, 119, 221);
 }
 
-.transition-height {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease-out;
-}
-.open {
-  max-height: 100%;
-}
+// .transition-height {
+//       max-height: 0;
+//       overflow: hidden;
+//       transition: max-height 0.5s ease-out;
+// }
+// .open {
+//   max-height: 100%;
+// }
 
 </style>

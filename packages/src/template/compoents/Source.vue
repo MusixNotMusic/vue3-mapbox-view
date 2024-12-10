@@ -1,8 +1,8 @@
 <template>
   <div class="mp-layer-source" :style="customStyle">
-    <div class="mp-layer-content">
-      <span class="tag">数据源</span>
-      <div class="mp-key-value" v-for="(value, key, index) in sourceRef" :key="index">
+    <div class="mp-layer-default-content">
+      <span class="tag-t-l">数据源</span>
+      <div class="mp-key-value" v-for="(value, key, index) in sourceRef.default" :key="index">
         <label for="">
             <span>{{key}}</span>
             <div class="line" v-if="key === 'type'"></div>
@@ -15,6 +15,27 @@
         <template v-if="value.component">
           <component :is="value.component" v-model="value.value" :list="value.list"></component>
         </template>
+      </div>
+
+      <span class="tag-b-r" @click="showMore = !showMore">more</span>
+      <div class="transition-height" :class="{open: showMore}" >
+          <div class="mp-layer-other-content transition-height-container">
+            <div class="split-line"><span>更多配置</span></div>
+            <div class="mp-key-value" v-for="(value, key, index) in sourceRef.other" :key="index">
+              <label>
+                  <span>{{key}}</span>
+                  <div class="line" v-if="key === 'type'"></div>
+                  <span v-if="key === 'type'" 
+                    class="mb-icon icon"
+                    :class="['icon-' + value.value ]" 
+                    :title="value.value"></span>
+              </label>
+          
+              <template v-if="value && value.component">
+                <component :is="value.component" v-model="value.value" :list="value.list"></component>
+              </template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +59,9 @@ export default {
     }
   },
   setup(props, { emit }) {
-    const sourceRef = ref({});
+    const sourceRef = ref({ default: {}, other: {}, custom: {} });
+
+    const showMore = ref(false)
     
     watch(() => props.inputSource, (val, old) => {
       if (val !== old) {
@@ -57,7 +80,9 @@ export default {
             if (template[key] && template[key].setValue) {
               template[key].setValue(origin[key]);
             }
-            target[key] = template[key];
+            target.default[key] = template[key];
+          } else {
+            target.other[key] = template[key];
           }
         }
       })
@@ -80,17 +105,19 @@ export default {
     })
 
     return {
-      sourceRef
+      sourceRef,
+      showMore
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@use '../style.scss';
 
 .mp-layer-source {
   margin: 10px;
-  .mp-layer-content {
+  .mp-layer-default-content {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -104,14 +131,14 @@ export default {
       display: inline-block;
       position: absolute;
       top: 0px;
-      right: 0px;
+      right: 0.5px;
       font-size: 12px;
       color: #fff;
-      background: rgb(18, 57, 187);;
+      background: rgb(43, 165, 236);;
       border-top-right-radius: 4px;
       padding: 1px 2px;
       transform-origin: top right;
-      transform: scale(0.8);
+      transform: scale(0.7);
     }
   }
   .mp-key-value {
@@ -142,4 +169,15 @@ export default {
     }
   }
 }
+
+.mp-layer-other-content {
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: content-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
 </style>

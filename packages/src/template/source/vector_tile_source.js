@@ -5,13 +5,13 @@ import {
     ObjectType, 
     BooleanType, 
     TilesType,
-    Vecter4Type
+    BoundsType
 } from '../types/types';
 
 export const vector_tile_source = {
     type:        StringType,
     attribution: StringType,
-    bounds:      Vecter4Type,
+    bounds:      BoundsType,
     minzoom:     NumberType,
     maxzoom:     NumberType,
     promoteId:   ObjectType,

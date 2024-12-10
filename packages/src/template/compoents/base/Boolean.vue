@@ -7,7 +7,7 @@ export default {
     name: 'Boolean',
     props: {
         modelValue : {
-            type: Number,
+            type: Boolean,
             require: true
         }
     },

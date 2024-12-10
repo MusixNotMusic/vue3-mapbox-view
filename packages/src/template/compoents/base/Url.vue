@@ -19,33 +19,37 @@
             style="width: calc(100% - 20px)" 
             @blur="isFocus = false">
         </el-input>
-        <div class="transition-height" :class="{open: open}">
-            <div class="search-params-wrap" @mouseleave="focusIndex = -1">
-                <div class="item" v-for="(item, index) in params" :key="index" @mousemove="focusIndex = index">
-                    <el-input v-model="item.key" @input="seachParamsChange(item)"></el-input>
-                    <el-input v-model="item.value" @input="seachParamsChange(item)"></el-input>
-                    <!-- <el-icon v-if="focusIndex === index"><DeleteFilled/></el-icon> -->
-                    <el-icon class="icon" 
-                        v-if="focusIndex === index"
-                        size="16" 
-                        color="#333" 
-                        title="删除" @click="deleteItemHandle(index)"><Delete/></el-icon>
-                </div>
 
-                <div class="item">
-                    <el-input v-model="addItem.key" @change="addItemChangeHandle(item)" autofocus placeholder="Key"></el-input>
-                    <el-input v-model="addItem.value" @change="addItemChangeHandle(item)" autofocus placeholder="Value"></el-input>
+        <AutoHeight v-model="open">
+            <template #content>
+                <div class="search-params-wrap" @mouseleave="focusIndex = -1">
+                    <div class="item" v-for="(item, index) in params" :key="index" @mousemove="focusIndex = index">
+                        <el-input v-model="item.key" @input="seachParamsChange(item)"></el-input>
+                        <el-input v-model="item.value" @input="seachParamsChange(item)"></el-input>
+                        <el-icon class="icon" 
+                            v-if="focusIndex === index"
+                            size="16" 
+                            color="#333" 
+                            title="删除" @click="deleteItemHandle(index)"><Delete/></el-icon>
+                    </div>
+
+                    <div class="item">
+                        <el-input v-model="addItem.key" @change="addItemChangeHandle(item)" autofocus placeholder="Key"></el-input>
+                        <el-input v-model="addItem.value" @change="addItemChangeHandle(item)" autofocus placeholder="Value"></el-input>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </AutoHeight>
     </div>
 </template>
 <script>
 import { shallowRef, ref, watch, computed } from "vue";
 import { ArrowRight, Delete } from '@element-plus/icons-vue'
+import AutoHeight from '../transition/AutoHeight.vue';
+
 export default {
     name: 'Url',
-    components: { ArrowRight, Delete },
+    components: { ArrowRight, Delete, AutoHeight },
     props: {
         modelValue : {
             type: String,

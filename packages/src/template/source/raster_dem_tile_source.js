@@ -6,13 +6,13 @@ import {
     ObjectType, 
     BooleanType, 
     TilesType,
-    Vecter4Type
+    BoundsType
 } from '../types/types';
 
 export const raster_dem_tile_source = {
     type:           StringType,
     attribution:    StringType,
-    bounds:         Vecter4Type,
+    bounds:         BoundsType,
     encoding:       ArrayType,
     minzoom:        NumberType,
     maxzoom:        NumberType,
