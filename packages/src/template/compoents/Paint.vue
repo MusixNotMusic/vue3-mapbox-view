@@ -27,7 +27,7 @@
 </template>
 
 <script >
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, onUnmounted, watch, shallowRef } from "vue";
 
 export default {
   name: "Paint",
@@ -44,7 +44,7 @@ export default {
       type: Object
     },
     layerId: {
-      type: String
+      type: Object
     }
   },
   setup(props, { emit }) {

@@ -48,7 +48,6 @@ export default {
  
     watch(() => props.mapLayerList, (val, old) => {
       if (val !== old) {
-        loadLayer();
       }
     })
 

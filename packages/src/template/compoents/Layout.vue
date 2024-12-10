@@ -27,7 +27,7 @@
 </template>
 
 <script >
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, shallowRef, onMounted, onUnmounted } from "vue";
 
 export default {
   name: "Layout",
@@ -42,7 +42,7 @@ export default {
   },
   setup(props, { emit }) {
 
-    const inputLayout = ref(props.modelValue);
+    const inputLayout = shallowRef(props.modelValue);
 
     const activeNames = ref([]);
 

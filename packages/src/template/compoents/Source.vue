@@ -21,7 +21,7 @@
 </template>
 
 <script >
-import { reactive, watch, onMounted, onUnmounted, markRaw } from "vue";
+import { reactive, ref, watch, onMounted, onUnmounted, markRaw, shallowRef } from "vue";
 import { sources as TemplateSource } from '../source'
 import { cloneDeep } from 'lodash'
 
@@ -33,11 +33,12 @@ export default {
       type: Object
     },
     inputSource: {
+      type: Object,
       require: true
     }
   },
   setup(props, { emit }) {
-    const sourceRef = reactive({});
+    const sourceRef = ref({});
     
     watch(() => props.inputSource, (val, old) => {
       if (val !== old) {
@@ -63,7 +64,7 @@ export default {
     }
 
     const initSource = () => {
-      transform(TemplateSource, props.inputSource, sourceRef);
+      transform(TemplateSource, props.inputSource, sourceRef.value);
     }
 
     const updateSource = () => {

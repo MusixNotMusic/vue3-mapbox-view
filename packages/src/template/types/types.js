@@ -3,10 +3,14 @@ import Number  from '../compoents/base/Number.Vue';
 import Color from '../compoents/base/Color.Vue';
 import StringSelect from '../compoents/base/StringSelect.Vue';
 
+import ArrayString from '../compoents/base/ArrayString.Vue';
+
 import Tiles from '../compoents/base/Tiles.Vue';
 
 import Layout  from '../compoents/Layout.Vue';
 import Paint  from '../compoents/Paint.Vue';
+
+import { markRaw } from 'vue';
 
 
 
@@ -36,7 +40,7 @@ export class StringType extends Type{
     constructor() {
         super();
         this.value = 'a';
-        this.component = String;
+        this.component = markRaw(String);
     }
 }
 
@@ -44,7 +48,7 @@ export class NumberType extends Type{
     constructor() {
         super();
         this.value = '';
-        this.component = Number;
+        this.component = markRaw(Number);
     }
 }
 
@@ -75,6 +79,7 @@ export class ArrayStringType extends Type{
     constructor() {
         super();
         this.value = '';
+        this.component = markRaw(ArrayString);
     }
 }
 
@@ -82,6 +87,7 @@ export class ArrayNumberType extends Type{
     constructor() {
         super();
         this.value = '';
+        this.component = markRaw(ArrayString);
     }
 }
 
@@ -92,7 +98,7 @@ export class LayoutType extends Type{
     constructor() {
         super();
         this.value = '';
-        this.component = Layout;
+        this.component = markRaw(Layout);
     }
 }
 
@@ -103,7 +109,7 @@ export class PaintType extends Type{
     constructor() {
         super();
         this.value = '';
-        this.component = Paint;
+        this.component = markRaw(Paint);
     }
 }
 
@@ -114,7 +120,7 @@ export class PaintType extends Type{
     constructor() {
         super();
         this.value = '';
-        this.component = Tiles;
+        this.component = markRaw(Tiles);
     }
 }
 
@@ -137,7 +143,7 @@ export class ColorType extends Type{
     constructor() {
         super();
         this.value = '#fff';
-        this.component = Color;
+        this.component = markRaw(Color);
     }
 }
 
@@ -193,7 +199,7 @@ export class VisibilityType {
     constructor() {
         this.value = 'visible';
         this.list = ['visible', 'none'],
-        this.component = StringSelect;
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -204,7 +210,7 @@ export class LayerType extends Type {
         super();
         this.value = 'fill';
         this.list = [ 'fill', 'line', 'symbol', 'circle', 'heatmap','fill-extrusion', 'raster', 'raster-particle', 'hillshade', 'model', 'background', 'sky'],
-        this.component = StringSelect;
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -215,6 +221,7 @@ export class LineJoinType {
     constructor() {
         this.value = 'miter';
         this.list = ['bevel', 'round', 'miter', 'none']
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -223,6 +230,7 @@ export class LineCapType {
     constructor() {
         this.value = 'butt';
         this.list = ['butt', 'round', 'square']
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -232,6 +240,7 @@ export class TextWriteModeType {
     constructor() {
         this.value = 'horizontal';
         this.list = ['horizontal', 'vertical']
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -240,6 +249,7 @@ export class SymbolPlacementType {
     constructor() {
         this.value = 'point';
         this.list = ['point', 'line', 'line-center']
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -248,6 +258,7 @@ export class SymbolZOradrType {
     constructor() {
         this.value = 'auto';
         this.list = ['auto', 'viewport-y', 'source']
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -256,6 +267,7 @@ export class IconTextFitType {
     constructor() {
         this.value = 'none';
         this.list = ["none" | "width" | "height" | "both"]
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -263,6 +275,7 @@ export class TextAlignmentType {
     constructor() {
         this.value = 'auto';
         this.list = ["map", "viewport", "auto"]
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -272,6 +285,7 @@ export class RasterTextureFilterType {
     constructor() {
         this.value = 'linear';
         this.list = ["linear", "nearest"]
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -281,6 +295,7 @@ export class FillExtrusionAligmentType {
     constructor() {
         this.value = 'terrain';
         this.list = ["terrain", "flat"]
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -289,6 +304,7 @@ export class SkyType {
     constructor() {
         this.value = 'atmosphere';
         this.list = ["gradient", "atmosphere"]
+        this.component = markRaw(StringSelect);
     }
 }
 
@@ -296,7 +312,8 @@ export class SkyType {
 // model type
 export class ModelType {
     constructor() {
-        this.value = 'atmosphere';
-        this.list = ["gradient", "atmosphere"]
+        this.value = 'common-3d';
+        this.list = ["common-3d", "location-indicator"]
+        this.component = markRaw(StringSelect);
     }
 }
