@@ -19,7 +19,7 @@
                   </label>
               
                   <template v-if="value.component">
-                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                    <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
                   </template>
                 </div>
               </div>
@@ -44,7 +44,7 @@
                   </label>
               
                   <template v-if="value && value.component">
-                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                    <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
                   </template>
                 </div>
               </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script >
-import { ref, shallowRef, onMounted, onUnmounted } from "vue";
+import { ref, shallowRef, onMounted, onUnmounted, watch } from "vue";
 import AutoHeight from './transition/AutoHeight.vue';
 
 export default {
@@ -68,6 +68,12 @@ export default {
     },
     modelValue: {
       require: true
+    },
+    mapIns: {
+      type: Object
+    },
+    layerId: {
+      type: Object
     }
   },
   setup(props, { emit }) {
@@ -79,7 +85,20 @@ export default {
     const showMore = ref(false);
 
     const detail = ref(false);
-    const isTransition = ref(false);
+
+
+    const change = (key, value) => {
+      console.log('change', key, value);
+      if(key && value) {
+        if (props.mapIns) {
+          try {
+            props.mapIns.setLayoutProperty(props.layerId.value, key, value.value);
+          } catch(e) {
+            console.error('e ==>', key, value, e);
+          }
+        }
+      }
+    }
 
     onMounted(() => {
     });
@@ -93,7 +112,7 @@ export default {
       activeNames,
       showMore,
       detail,
-      isTransition
+      change
     };
   },
 };

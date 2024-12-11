@@ -44,6 +44,7 @@
 import { shallowRef, watch } from "vue";
 export default {
     name: 'Bounds',
+    emits: ['change'],
     props: {
         modelValue : {
             type: Array,
@@ -60,8 +61,8 @@ export default {
         });
 
         const change = () => {
-            console.log('input.value ==>', input.value)
             emit("update:modelValue", input.value);
+            emit("change", change);
         }
 
         return {

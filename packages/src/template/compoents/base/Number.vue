@@ -1,10 +1,11 @@
 <template>
-    <el-input-number v-model="input" style="width: 120px" @change="change"></el-input-number>
+    <el-input-number v-model="input" style="width: 120px" :step="0.1" :min="0" @change="change"></el-input-number>
 </template>
 <script>
 import { shallowRef, watch } from "vue";
 export default {
     name: 'Number',
+    emits: ['change'],
     props: {
         modelValue : {
             type: Number,
@@ -22,6 +23,7 @@ export default {
 
         const change = () => {
             emit("update:modelValue", input.value);
+            emit("change", change);
         }
 
         return {

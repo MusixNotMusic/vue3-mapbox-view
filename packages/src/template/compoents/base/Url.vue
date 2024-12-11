@@ -49,6 +49,7 @@ import AutoHeight from '../transition/AutoHeight.vue';
 
 export default {
     name: 'Url',
+    emits: ['change'],
     components: { ArrowRight, Delete, AutoHeight },
     props: {
         modelValue : {

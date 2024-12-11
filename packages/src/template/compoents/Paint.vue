@@ -32,7 +32,7 @@
                   </label>
               
                   <template v-if="value.component">
-                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                    <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
                   </template>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                   </label>
               
                   <template v-if="value && value.component">
-                    <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                    <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
                   </template>
                 </div>
               </div>
@@ -100,16 +100,17 @@ export default {
 
     const showMore = ref(false);
 
-    watch(() => inputPaint, (val) => {
-      setPaintProperty(val.value.default);
-    }, {deep: true})
-
-    const setPaintProperty = (data) => {
-      Object.entries(data).forEach(([key, value]) => {
+    const change = (key, value) => {
+      console.log('change', key, value);
+      if(key && value) {
         if (props.mapIns) {
-          props.mapIns.setPaintProperty(props.layerId.value, key, value.value);
+          try {
+            props.mapIns.setPaintProperty(props.layerId.value, key, value.value);
+          } catch(e) {
+            console.error('e ==>', key, value, e);
+          }
         }
-      })
+      }
     }
 
     onMounted(() => {
@@ -123,7 +124,8 @@ export default {
       inputPaint,
       activeNames,
       detail,
-      showMore
+      showMore,
+      change
     };
   },
 };

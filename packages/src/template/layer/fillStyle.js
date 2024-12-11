@@ -26,7 +26,7 @@ export const fillStyle = {
         "fill-translate-anchor":             ScreenAnchorType, // <"map" | "viewport">,
         "fill-pattern":                      StringType,
         "fill-emissive-strength":            NumberType,
-        "fill-z-offset":                     NumberType,
+        // "fill-z-offset":                     NumberType,
         // "fill-color-transition":             TransitionType,
         // "fill-opacity-transition":           TransitionType,
         // "fill-outline-color-transition":     TransitionType,

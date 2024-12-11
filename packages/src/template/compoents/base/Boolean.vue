@@ -5,6 +5,7 @@
 import { shallowRef, watch } from "vue";
 export default {
     name: 'Boolean',
+    emits: ['change'],
     props: {
         modelValue : {
             type: Boolean,
@@ -22,6 +23,7 @@ export default {
 
         const change = () => {
             emit("update:modelValue", input.value);
+            emit("change", change);
         }
 
         return {

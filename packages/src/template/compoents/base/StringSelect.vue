@@ -7,6 +7,7 @@
 import { shallowRef, watch } from "vue";
 export default {
     name: 'String',
+    emits: ['change'],
     props: {
         modelValue : {
             type: String,
@@ -27,6 +28,7 @@ export default {
 
         const change = () => {
             emit("update:modelValue", input.value);
+            emit("change", change);
         }
 
         return {
