@@ -9,10 +9,11 @@ import MapboxView from '../packages/src/MapboxView.vue';
 import { mapLayerList } from '../packages/src/data';
 import MapboxViewPanel from '../packages/src/MapboxViewPanel.vue';
 import MapboxLayerManage from '../packages/src/template/MapboxLayerManage.vue';
+import MapboxLayerView from '../packages/src/template/MapboxLayerView.vue';
 
 export default {
   name: 'App',
-  components: { MapboxView, MapboxViewPanel, MapboxLayerManage },
+  components: { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView },
   setup() {
     const layerList = ref(mapLayerList);
     
@@ -42,7 +43,7 @@ export default {
 <template>
   <MapboxView :loadDem="true" :mapLayerList="layerList" @mapLoaded="mapLoaded"></MapboxView>
   <MapboxViewPanel v-if="loaded" :mapLayerList="layerList" :mapIns="mapIns"></MapboxViewPanel>
-  <MapboxLayerManage v-if="loaded" :mapIns="mapIns"></MapboxLayerManage>
+  <MapboxLayerView v-if="loaded" :mapIns="mapIns"></MapboxLayerView>
 </template>
 
 <style scoped>

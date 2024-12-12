@@ -472,5 +472,4 @@ export const mapLayerList = [
         "layer_id": "1",
         "extend": ""
     },
-   
 ]

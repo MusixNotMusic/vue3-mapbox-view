@@ -42,17 +42,17 @@ export class UnknowType extends Type{
 }
 
 export class StringType extends Type{
-    constructor() {
+    constructor(value) {
         super();
-        this.value = '';
+        this.value = value || '';
         this.component = markRaw(String);
     }
 }
 
 export class NumberType extends Type{
-    constructor() {
+    constructor(value) {
         super();
-        this.value = 0;
+        this.value = value || 0;
         this.component = markRaw(Number);
     }
 }

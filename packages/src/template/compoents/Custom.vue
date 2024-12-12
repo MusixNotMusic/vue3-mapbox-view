@@ -27,7 +27,7 @@ export default {
       type: Object
     },
     modelValue : {
-      type: Boolean,
+      type: Object,
       require: true
     }
   },

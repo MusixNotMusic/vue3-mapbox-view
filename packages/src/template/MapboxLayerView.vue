@@ -2,25 +2,8 @@
   <div class="mapbox-layer" :style="customStyle">
     <div class="head">
       <span class="title">图层管理配置</span>
-  
-      <div class="handle">
-        <el-radio-group v-model="mode" size="small" @change="switchModeClick()">
-          <el-radio-button key="mapbox" :value="'mapbox'" size="small">加载图层</el-radio-button>
-          <el-radio-button key="json" :value="'json'" size="small">导入图层</el-radio-button>
-        </el-radio-group>
-      </div>
     </div>
-
-    <div class="drop-area"
-          v-if="mode === 'json'"
-          @drop="handleFileDrop"
-          @dragover.prevent
-          @dragenter.prevent>
-      <el-icon class="el-icon--upload"><UploadFilled/></el-icon>
-      <div class="el-upload__text">
-        <em>拖拽文件到这里</em>
-      </div>
-    </div>
+   
 
     <div class="mapbox-layer-manage"  id="mp-layer-scroll">
       <el-collapse  v-model="activeNames" @change="() => {}">
@@ -38,12 +21,11 @@
           </template>
           <div class="content">
             <span class="tag-t100-r" @click="jsonModeClick(layer, index)">json-viewer</span>
+            <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
+            <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]" :sourceId="layer.source" :mapIns="mapIns" @change="sourceChange(layer, index)"></Source>
             <div class="json-view">
               <JsonViewer v-if="layer.showJson" :value="jsonObject" :expand-depth=5 copyable boxed sort></JsonViewer>
             </div>
-            <Custom v-model="customList[index]" @change="customChange(layer, index)"></Custom>
-            <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
-            <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]" :sourceId="layer.source" :mapIns="mapIns" @change="sourceChange(layer, index)"></Source>
           </div>
 
         </el-collapse-item>
@@ -53,9 +35,8 @@
 </template>
 
 <script >
-import { ref, watch, onMounted, onUnmounted, toRaw, reactive, markRaw } from "vue";
+import { ref, onMounted, toRaw } from "vue";
 import Scrollbar from 'smooth-scrollbar';
-import Custom from './compoents/Custom.vue';
 import Layer from './compoents/Layer.vue';
 import Source from './compoents/Source.vue';
 
@@ -65,17 +46,10 @@ import 'vue-json-viewer/style.css';
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
 
-import String from './compoents/base/String.vue'
-import Number from './compoents/base/Number.vue'
-import { StringType, NumberType } from "./types/types";
-
-import { UploadFilled } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus';
-import { isString, isNumber } from 'lodash';
 
 export default {
-  name: "MapboxLayerManage",
-  components: { Custom, Layer, Source, JsonViewer, UploadFilled },
+  name: "MapboxLayerView",
+  components: { Layer, Source, JsonViewer },
   props: {
     customStyle: {
       type: Object
@@ -94,74 +68,24 @@ export default {
     const showJson = ref(false);
     const jsonObject = ref(null);
 
-    const mode = ref('mapbox');
-
-    let customList = reactive([]);
-
-    const initData = () => {
-      layerList = ref([]);
-      sourceEntries = ref({});
-      customList = reactive([]);
-    }
 
     const loadLayer = () => {
-      // initData();
       if (props.mapIns) {
         const style = props.mapIns.getStyle();
         if (style) {
           layerList.value = toRaw(style.layers);
           sourceEntries.value = toRaw(style.sources);
-
-          const size = layerList.value.length;
-          for(let i = 0; i < size; i++) {
-            customList[i] = {
-              name:  new StringType(),
-              group: new StringType(),
-              from:  new StringType(),
-              order: new NumberType()
-            }
-          }
         }
       }
     }
 
-    const loadJson = (list) => {
-      if (list) {
-        list.forEach((item, index) => {
-          if(item) {
-            const source = item.layer.source;
-            layerList.value.push(item.layer);
-            sourceEntries.value[source] = item.source;
-
-            delete item.layer;
-            delete item.source;
-
-            const o = {};
-            for(let key in item) {
-              if (isString(item[key])) {
-                o[key] = new StringType(item[key]);
-              } else if (isNumber(item[key])) {
-                o[key] = new NumberType(item[key]);
-              }
-            }
-            customList[index] = o;
-          }
-        })
-      }
-    }
 
     const setJsonData = (layer, index) => {
-      if(mode.value === 'mapbox') {
-        const _layer = props.mapIns.getLayer(layer.id);
-        const _source = props.mapIns.getSource(layer.source);
-        jsonObject.value = {
-          layer: _layer.serialize(),
-          source: _source.serialize()
-        }
-
-        Object.entries(customList[index]).forEach(([key, value]) => {
-          jsonObject.value[key] = value.value;
-        })
+      const _layer = props.mapIns.getLayer(layer.id);
+      const _source = props.mapIns.getSource(layer.source);
+      jsonObject.value = {
+        layer: _layer.serialize(),
+        source: _source.serialize()
       }
     }
 
@@ -181,63 +105,21 @@ export default {
       setJsonData(layer, index);
     }
 
-    const customChange = (layer, index) => {
-      setJsonData(layer, index);
-    }
-
-    const switchModeClick = () => {
-      layerList.value = [];
-      sourceEntries.value = {};
-      
-      if (mode.value === 'mapbox') {
-        loadLayer();
-      } else if (mode.value === 'json') {
-        // loadJson();
-      }
-    }
-
-    const handleFileDrop = (event) => {
-      event.preventDefault();
-
-      const files = event.dataTransfer.files;
-      console.log('files ==>', files);
-      let reader = new FileReader();
-      for(let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (file.type.includes('json')) {
-          reader.readAsText(file);
-          reader.onloadend = () => {
-            // console.log('json =>', JSON.parse(reader.result))
-            const json = JSON.parse(reader.result);
-            loadJson(json.map(o => o.extend));
-          }
-        } else {
-          ElMessage.error('拖拽文件必须是json文件')
-        }
-      }
-    }
-
     onMounted(() => {
       Scrollbar.init(document.querySelector('#mp-layer-scroll'));
-      switchModeClick();
+      loadLayer();
     });
 
     return {
       layerList,
-      customList,
       activeNames,
       sourceEntries,
       focusIndex,
       showJson,
       jsonObject,
       jsonModeClick,
-      customChange,
       layerChange,
       sourceChange,
-      mode,
-
-      switchModeClick,
-      handleFileDrop
     };
   },
 };
@@ -258,7 +140,7 @@ export default {
   left: 40px;
   background: var(--mapbox-layer-manage-bg);
   width: 800px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.65);
   min-height: 300px;
@@ -277,6 +159,7 @@ export default {
   .mapbox-layer-manage{
     max-height: 80vh;
     overflow-y: auto;
+    padding-right: 10px;
     .title {
       display: flex;
       align-items: center;
