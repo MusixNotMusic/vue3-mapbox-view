@@ -74,6 +74,7 @@ import AutoHeight from './transition/AutoHeight.vue';
 
 export default {
   name: "Paint",
+  emits: ['change'],
   components: { AutoHeight },
   props: {
     customStyle: {
@@ -101,11 +102,13 @@ export default {
     const showMore = ref(false);
 
     const change = (key, value) => {
-      console.log('change', key, value);
       if(key && value) {
         if (props.mapIns) {
           try {
             props.mapIns.setPaintProperty(props.layerId.value, key, value.value);
+            setTimeout(() => {
+              emit('change');
+            })
           } catch(e) {
             console.error('e ==>', key, value, e);
           }

@@ -61,6 +61,7 @@ import AutoHeight from './transition/AutoHeight.vue';
 
 export default {
   name: "Layout",
+  emits: ['change'],
   components: { AutoHeight },
   props: {
     customStyle: {
@@ -88,11 +89,11 @@ export default {
 
 
     const change = (key, value) => {
-      console.log('change', key, value);
       if(key && value) {
         if (props.mapIns) {
           try {
             props.mapIns.setLayoutProperty(props.layerId.value, key, value.value);
+            emit('change');
           } catch(e) {
             console.error('e ==>', key, value, e);
           }

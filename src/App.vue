@@ -1,10 +1,10 @@
 <script>
 import { ref, onMounted } from 'vue'
 
-import { MapboxView } from '@cdyw/vue3-mapbox-view';
-import '@cdyw/vue3-mapbox-view/dist/style.css';
+// import { MapboxView } from '@cdyw/vue3-mapbox-view';
+// import '@cdyw/vue3-mapbox-view/dist/style.css';
 
-// import MapboxView from '../packages/src/MapboxView.vue';
+import MapboxView from '../packages/src/MapboxView.vue';
 
 import { mapLayerList } from '../packages/src/data';
 import MapboxViewPanel from '../packages/src/MapboxViewPanel.vue';
@@ -21,6 +21,8 @@ export default {
 
     const mapLoaded = ({ map, mapModel }) => {
       console.log('mapLoaded ==>', map, mapModel);
+
+      window.mapIns = map;
       loaded.value = true;
       mapIns.value = map;
     }

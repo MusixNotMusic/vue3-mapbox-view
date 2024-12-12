@@ -13,7 +13,7 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value" :list="value.list"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
         </template>
       </div>
 
@@ -32,7 +32,7 @@
               </label>
           
               <template v-if="value && value.component">
-                <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
               </template>
           </div>
         </div>
@@ -42,13 +42,14 @@
 </template>
 
 <script >
-import { reactive, ref, watch, onMounted, onUnmounted, markRaw, shallowRef } from "vue";
+import {  ref, watch, onMounted, onUnmounted, reactive } from "vue";
 import { sources as TemplateSource } from '../source'
 import { cloneDeep } from 'lodash'
 
 export default {
   name: "Layer",
   components: {},
+  emits: ['change', 'update:modelValue'],
   props: {
     customStyle: {
       type: Object
@@ -56,10 +57,18 @@ export default {
     inputSource: {
       type: Object,
       require: true
-    }
+    },
+    sourceId: {
+      type: String,
+      require: true
+    },
+    mapIns: {
+      type: Object,
+      require: true
+    },
   },
   setup(props, { emit }) {
-    const sourceRef = ref({ default: {}, other: {}, custom: {} });
+    const sourceRef = reactive({ default: {}, other: {}, custom: {} });
 
     const showMore = ref(false)
     
@@ -89,11 +98,34 @@ export default {
     }
 
     const initSource = () => {
-      transform(TemplateSource, props.inputSource, sourceRef.value);
+      transform(TemplateSource, props.inputSource, sourceRef);
     }
 
     const updateSource = () => {
 
+    }
+
+
+    const change = (key, value) => {
+      if(key && value) {
+        if (props.mapIns) {
+          try {
+            const source = props.mapIns.getSource(props.sourceId);
+            if (key === 'tiles') {
+              source.setTiles(value.value);
+            } else if (key === 'url') {
+              source.setUrl(value.value);
+            } else {
+              source[key] = value.value;
+            }
+
+            emit('change');
+            console.log('source ==>', source);
+          } catch(e) {
+            console.error('e ==>', key, value, e);
+          }
+        }
+      }
     }
 
     onMounted(() => {
@@ -106,7 +138,8 @@ export default {
 
     return {
       sourceRef,
-      showMore
+      showMore,
+      change
     };
   },
 };

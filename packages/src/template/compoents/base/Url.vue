@@ -16,6 +16,7 @@
             :rows="4"
             autosize
             type="textarea"
+            @change="change" 
             style="width: calc(100% - 20px)" 
             @blur="isFocus = false">
         </el-input>
@@ -24,8 +25,8 @@
             <template #content>
                 <div class="search-params-wrap" @mouseleave="focusIndex = -1">
                     <div class="item" v-for="(item, index) in params" :key="index" @mousemove="focusIndex = index">
-                        <el-input v-model="item.key" @input="seachParamsChange(item)"></el-input>
-                        <el-input v-model="item.value" @input="seachParamsChange(item)"></el-input>
+                        <el-input v-model="item.key" @change="seachParamsChange(item)"></el-input>
+                        <el-input v-model="item.value" @change="seachParamsChange(item)"></el-input>
                         <el-icon class="icon" 
                             v-if="focusIndex === index"
                             size="16" 
@@ -49,7 +50,7 @@ import AutoHeight from '../transition/AutoHeight.vue';
 
 export default {
     name: 'Url',
-    emits: ['change'],
+    emits: ['change', 'update:modelValue'],
     components: { ArrowRight, Delete, AutoHeight },
     props: {
         modelValue : {
@@ -119,14 +120,14 @@ export default {
         });
 
         const change = () => {
-            emit("update:modelValue", input.value);
-            emit("change", input.value);
+            emit("update:modelValue", decodeURIComponent(input.value));
+            emit("change", decodeURIComponent(input.value));
         }
 
         const seachParamsChange = (item) => {
             console.log(item);
-            emit("update:modelValue", input.value);
-            emit("change", input.value);
+            emit("update:modelValue", decodeURIComponent(input.value));
+            emit("change", decodeURIComponent(input.value));
         }
 
         const focusHandle = () => {

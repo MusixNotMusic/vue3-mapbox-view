@@ -1,5 +1,8 @@
 import mapboxgl from "mapbox-gl";
-import 'mapbox-gl/dist/mapbox-gl.css'
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './style/mapbox-popup.scss';
+
+
 import { defaultInitParams, defaultEnableEvent } from './lib/default';
 
 export default class MapboxLayerRender {

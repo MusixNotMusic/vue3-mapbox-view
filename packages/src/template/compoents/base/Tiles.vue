@@ -12,7 +12,7 @@ import { shallowRef, watch } from "vue";
 import Url from './Url.vue'
 export default {
     name: 'Tiles',
-    emits: ['change'],
+    emits: ['change', 'update:modelValue'],
     components: { Url },
     props: {
         modelValue : {
@@ -32,7 +32,7 @@ export default {
 
         const change = () => {
             emit("update:modelValue", input.value);
-            emit("change", change);
+            emit("change");
         }
 
         return {

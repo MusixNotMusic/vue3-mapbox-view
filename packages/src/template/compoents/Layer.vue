@@ -13,7 +13,7 @@
         </label>
      
         <template v-if="value.component">
-          <component :is="value.component" v-model="value.value" :list="value.list" :layerId="layerRef.default.id" :mapIns="mapIns"></component>
+          <component :is="value.component" v-model="value.value" :list="value.list" :layerId="layerRef.default.id" :mapIns="mapIns" @change="change(key, value)"></component>
         </template>
       </div>
 
@@ -34,7 +34,7 @@
               </label>
           
               <template v-if="value && value.component">
-                <component :is="value.component" v-model="value.value" :list="value.list"></component>
+                <component :is="value.component" v-model="value.value" :list="value.list" @change="change(key, value)"></component>
               </template>
             </div>
           </div>
@@ -53,6 +53,7 @@ import AutoHeight from './transition/AutoHeight.vue';
 export default {
   name: "Layer",
   components: { AutoHeight },
+  emits: ['change', 'update:modelValue'],
   props: {
     customStyle: {
       type: Object
@@ -123,6 +124,21 @@ export default {
     }
 
 
+    const change = (key, value) => {
+      if (key && value) {
+        if (props.mapIns) {
+          console.log('change ==>', key, value);
+          const layer = props.mapIns.getLayer(props.inputLayer.id);
+          if (layer) {
+            layer[key] = value.value;
+            props.mapIns.triggerRepaint();
+            emit('change');
+          }
+        }
+      } 
+    }
+
+
     onMounted(() => {
       initLayer();
     });
@@ -133,7 +149,8 @@ export default {
 
     return {
       layerRef,
-      showMore
+      showMore,
+      change
     };
   },
 };

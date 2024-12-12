@@ -94,5 +94,6 @@ export default {
     font-size: 14px;
     pointer-events: none;
   }
+
 }
 </style>
