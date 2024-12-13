@@ -40,7 +40,9 @@
     "sass": "^1.77.4",
     "smooth-scrollbar": "^8.8.4",
     "vue": "^3.2.45",
-    "vue-json-viewer": "^3.0.4"
+    "vue-json-pretty": "^2.4.0",
+    "vue-json-viewer": "^3.0.4",
+    "vue3-json-viewer": "^2.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

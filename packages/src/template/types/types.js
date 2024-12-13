@@ -209,8 +209,9 @@ export class AroundAnchorType {
     }
 }
 
-export class VisibilityType {
+export class VisibilityType extends Type{
     constructor() {
+        super();
         this.value = 'visible';
         this.list = ['visible', 'none'],
         this.component = markRaw(StringSelect);

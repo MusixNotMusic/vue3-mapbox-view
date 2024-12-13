@@ -151,6 +151,7 @@ export default {
     display: flex;
     flex-direction: column;
     min-height: 27px;
+    height: max-content;
     
     .tag {
       display: inline-block;
@@ -215,13 +216,11 @@ export default {
   flex-wrap: wrap;
   .item {
     background: #ccc;
-    height: 28px;
     line-height: 28px;
     padding: 0 5px;
     border-radius: 2px;
     font-size: 12px;
-    width: max-content;
-    flex-shrink: 1;
+    min-height: 28px;
   }
   .item:first-child {
     margin-left: 5px;

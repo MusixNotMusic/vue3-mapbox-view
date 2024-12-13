@@ -49,6 +49,7 @@ import { reactive, watch, onMounted, onUnmounted, ref } from "vue";
 import { TemplateLayer, styles } from '../layer'
 import { cloneDeep } from 'lodash';
 import AutoHeight from './transition/AutoHeight.vue';
+import { LayoutType, PaintType } from '../types/types';
 
 export default {
   name: "Layer",
@@ -82,26 +83,40 @@ export default {
       template = cloneDeep(template);
       Object.entries(template).forEach(([key, value]) => {
         if (value.constructor instanceof Function ) {
-          template[key] = new value();
+          try {
+            template[key] = new value();
 
-          if(origin[key]) {
-            if (template[key] && template[key].setValue) {
-              template[key].setValue(origin[key]);
+            if(origin[key]) {
+              if (template[key] && template[key].setValue) {
+                template[key].setValue(origin[key]);
+              }
+              target.default[key] = template[key];
+            } else {
+              target.other[key] = template[key];
             }
-            target.default[key] = template[key];
-          } else {
-            target.other[key] = template[key];
+          } catch(e) {
+            console.error('Transform error ==>', e);
           }
         }
       })
     }
 
     const initLayer = () => {
+
+      if(!props.inputLayer.layout) {
+        props.inputLayer.layout = {}
+      }
+
+      if(!props.inputLayer.paint) {
+        props.inputLayer.paint = {}
+      }
+
       transform(TemplateLayer, props.inputLayer, layerRef);
 
       initLayoutPaint();
 
       layerRef.default.layout.setValue(layoutRef);
+    
       layerRef.default.paint.setValue(paintRef);
     }
 
@@ -119,8 +134,14 @@ export default {
       let layout = props.inputLayer.layout;
       let paint  = props.inputLayer.paint;
 
-      transform(LayoutTemplate, layout, layoutRef);
-      transform(PaintTemplate, paint, paintRef);
+
+      if (layout) {
+        transform(LayoutTemplate, layout, layoutRef);
+      }
+
+      if (paint) {
+        transform(PaintTemplate, paint, paintRef);
+      }
     }
 
 

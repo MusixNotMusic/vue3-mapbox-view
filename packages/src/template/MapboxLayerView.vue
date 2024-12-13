@@ -21,11 +21,11 @@
           </template>
           <div class="content">
             <span class="tag-t100-r" @click="jsonModeClick(layer, index)">json-viewer</span>
+            <div class="json-view">
+              <VueJsonPretty v-if="layer.showJson" :data="jsonObject" :expand-depth=5 copyable boxed sort></VueJsonPretty>
+            </div>
             <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
             <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]" :sourceId="layer.source" :mapIns="mapIns" @change="sourceChange(layer, index)"></Source>
-            <div class="json-view">
-              <JsonViewer v-if="layer.showJson" :value="jsonObject" :expand-depth=5 copyable boxed sort></JsonViewer>
-            </div>
           </div>
 
         </el-collapse-item>
@@ -40,8 +40,14 @@ import Scrollbar from 'smooth-scrollbar';
 import Layer from './compoents/Layer.vue';
 import Source from './compoents/Source.vue';
 
-import JsonViewer from 'vue-json-viewer';
-import 'vue-json-viewer/style.css';
+// import { JsonViewer } from 'vue3-json-viewer';
+// import "vue3-json-viewer/dist/index.css";
+
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
+
+// import JsonViewer from 'vue-json-viewer';
+// import 'vue-json-viewer/style.css';
 
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
@@ -49,7 +55,7 @@ import '../../iconfont/iconfont.css';
 
 export default {
   name: "MapboxLayerView",
-  components: { Layer, Source, JsonViewer },
+  components: { Layer, Source, VueJsonPretty },
   props: {
     customStyle: {
       type: Object
@@ -84,9 +90,11 @@ export default {
       const _layer = props.mapIns.getLayer(layer.id);
       const _source = props.mapIns.getSource(layer.source);
       jsonObject.value = {
-        layer: _layer.serialize(),
-        source: _source.serialize()
+        layer: _layer ? _layer.serialize() : {},
+        source: _source ? _source.serialize() : {}
       }
+
+      console.log('setJsonData==>',  jsonObject.value);
     }
 
     const jsonModeClick = (layer, index) => {

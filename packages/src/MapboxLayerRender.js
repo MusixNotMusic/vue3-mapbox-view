@@ -2,6 +2,8 @@ import mapboxgl from "mapbox-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './style/mapbox-popup.scss';
 
+export const accessToken = 'pk.eyJ1IjoibXVzaXgiLCJhIjoiY2xwM29ldXpuMTYyMzJvcXU3ZWRyZHMzeCJ9.NLAhXDinvYbqHq2fPg4z6A'
+mapboxgl.accessToken = accessToken;
 
 import { defaultInitParams, defaultEnableEvent } from './lib/default';
 
@@ -16,7 +18,7 @@ export default class MapboxLayerRender {
 
       this.mapLoadedCallback = option.mapLoaded;
 
-      this.mapLayerList = option.mapLayerList;
+      this.mapLayerList = option.mapLayerList || [];
 
       this.loadDem = option.loadDem;
 
@@ -50,7 +52,8 @@ export default class MapboxLayerRender {
       antialias:             true,
       attributionControl:    false,
       renderWorldCopies:     false, // 如果为 true ，地图缩小时将渲染多个全局地图的副本。
-      style:                 mapStyle,
+      // style:                 mapStyle,
+      style:                 'mapbox://styles/mapbox/satellite-streets-v12',
       preserveDrawingBuffer: true, // 让html2Canvas可以截到地图，否则为黑屏
       hash:                  false, // sync `center`, `zoom`, `pitch`, and `bearing` with URL
     });

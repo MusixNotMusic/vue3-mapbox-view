@@ -1,15 +1,16 @@
 <script>
 import { ref, onMounted } from 'vue'
 
-// import { MapboxView } from '@cdyw/vue3-mapbox-view';
-// import '@cdyw/vue3-mapbox-view/dist/style.css';
-
-import MapboxView from '../packages/src/MapboxView.vue';
+// import { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView } from '../dist/@cdyw/vue3-mapbox-view.es.js';
+import { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView } from '../packages/index';
+// import { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView } from '@cdyw/vue3-mapbox-view';
+import '@cdyw/vue3-mapbox-view/dist/style.css';
 
 import { mapLayerList } from '../packages/src/data';
-import MapboxViewPanel from '../packages/src/MapboxViewPanel.vue';
-import MapboxLayerManage from '../packages/src/template/MapboxLayerManage.vue';
-import MapboxLayerView from '../packages/src/template/MapboxLayerView.vue';
+
+// import MapboxView from '../packages/src/MapboxView.vue';
+// import MapboxViewPanel from '../packages/src/MapboxViewPanel.vue';
+// import MapboxLayerManage from '../packages/src/template/MapboxLayerManage.vue';
 
 export default {
   name: 'App',
@@ -41,8 +42,8 @@ export default {
 </script>
 
 <template>
-  <MapboxView :loadDem="true" :mapLayerList="layerList" @mapLoaded="mapLoaded"></MapboxView>
-  <MapboxViewPanel v-if="loaded" :mapLayerList="layerList" :mapIns="mapIns"></MapboxViewPanel>
+  <MapboxView :loadDem="true"  @mapLoaded="mapLoaded"></MapboxView>
+  <!-- <MapboxViewPanel v-if="loaded" :mapLayerList="layerList" :mapIns="mapIns"></MapboxViewPanel> -->
   <MapboxLayerView v-if="loaded" :mapIns="mapIns"></MapboxLayerView>
 </template>
 

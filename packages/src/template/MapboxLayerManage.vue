@@ -39,7 +39,7 @@
           <div class="content">
             <span class="tag-t100-r" @click="jsonModeClick(layer, index)">json-viewer</span>
             <div class="json-view">
-              <JsonViewer v-if="layer.showJson" :value="jsonObject" :expand-depth=5 copyable boxed sort></JsonViewer>
+              <VueJsonPretty v-if="layer.showJson" :value="jsonObject" :expand-depth=5 copyable boxed sort></VueJsonPretty>
             </div>
             <Custom v-model="customList[index]" @change="customChange(layer, index)"></Custom>
             <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
@@ -59,14 +59,12 @@ import Custom from './compoents/Custom.vue';
 import Layer from './compoents/Layer.vue';
 import Source from './compoents/Source.vue';
 
-import JsonViewer from 'vue-json-viewer';
-import 'vue-json-viewer/style.css';
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
 
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
 
-import String from './compoents/base/String.vue'
-import Number from './compoents/base/Number.vue'
 import { StringType, NumberType } from "./types/types";
 
 import { UploadFilled } from '@element-plus/icons-vue'
@@ -75,7 +73,7 @@ import { isString, isNumber } from 'lodash';
 
 export default {
   name: "MapboxLayerManage",
-  components: { Custom, Layer, Source, JsonViewer, UploadFilled },
+  components: { Custom, Layer, Source, VueJsonPretty, UploadFilled },
   props: {
     customStyle: {
       type: Object
