@@ -2,9 +2,9 @@
   "name": "@cdyw/vue3-mapbox-view",
   "author": "MusixNotMusic<https://github.com/MusixNotMusic>",
   "private": false,
-  "version": "1.0.0",
-  "main": "dist/vue3-mapbox-view.umd.js",
-  "module": "dist/vue3-mapbox-view.es.js",
+  "version": "1.0.5",
+  "main": "dist/@cdyw/vue3-mapbox-view.umd.js",
+  "module": "dist/@cdyw/vue3-mapbox-view.es.js",
   "exports": {
     "./dist/style.css": "./dist/style.css",
     ".": {
@@ -32,7 +32,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@cdyw/vue3-mapbox-view": "^1.0.0",
+    "@cdyw/vue3-mapbox-view": "^1.0.4",
     "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "^2.9.0",
     "events": "^3.3.0",
