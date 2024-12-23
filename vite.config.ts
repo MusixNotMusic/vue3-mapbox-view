@@ -38,6 +38,7 @@ export default defineConfig({
       less: {
         javascriptEnabled: true,
       },
+      scss: { api: 'modern-compiler' },
     },
     postcss: {
       plugins: [postcssPresetEnv()],

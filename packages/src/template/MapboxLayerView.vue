@@ -5,7 +5,7 @@
     </div>
    
 
-    <div class="mapbox-layer-manage"  id="mp-layer-scroll">
+    <!-- <div class="mapbox-layer-manage"  id="mp-layer-scroll">
       <el-collapse  v-model="activeNames" @change="() => {}">
         <el-collapse-item 
           v-for="(layer, index) in layerList" 
@@ -21,15 +21,46 @@
           </template>
           <div class="content">
             <span class="tag-t100-r" @click="jsonModeClick(layer, index)">json-viewer</span>
-            <div class="json-view">
-              <VueJsonPretty v-if="layer.showJson" :data="jsonObject" :expand-depth=5 copyable boxed sort></VueJsonPretty>
-            </div>
             <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
             <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]" :sourceId="layer.source" :mapIns="mapIns" @change="sourceChange(layer, index)"></Source>
           </div>
 
         </el-collapse-item>
       </el-collapse >
+    </div> -->
+
+
+
+    <div class="mapbox-layer-manage"  id="mp-layer-scroll">
+      <div class="collapse">
+        <div class="el-collapse-item"
+          v-for="(layer, index) in layerList" 
+          :key="index"
+          :name="layer.id"
+          >
+          <div class="title" @mousemove="focusIndex = index" @click="layer.showMore = !layer.showMore">
+            <div class="left">
+              <span  class="mb-icon icon-layer"></span>
+              <span class="text">{{layer.id }}</span>
+            </div>
+            <div class="right">
+              <el-icon class="icon" :class="{active: layer.showMore}"><ArrowRight /></el-icon>
+            </div>
+          </div>
+          <AutoHeight v-model="layer.showMore">
+            <template #content>
+              <div class="content">
+                <div class="json-view">
+                  <VueJsonPretty v-if="layer.showJson" :data="jsonObject" :expand-depth=5 copyable boxed sort></VueJsonPretty>
+                </div>
+                <span class="tag-t100-r" @click="jsonModeClick(layer, index)">json-viewer</span>
+                <Layer :inputLayer="layer" :mapIns="mapIns" @change="layerChange(layer, index)"></Layer>
+                <Source v-if="sourceEntries[layer.source]" :inputSource="sourceEntries[layer.source]" :sourceId="layer.source" :mapIns="mapIns" @change="sourceChange(layer, index)"></Source>
+              </div>
+            </template>
+          </AutoHeight>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,14 +71,12 @@ import Scrollbar from 'smooth-scrollbar';
 import Layer from './compoents/Layer.vue';
 import Source from './compoents/Source.vue';
 
-// import { JsonViewer } from 'vue3-json-viewer';
-// import "vue3-json-viewer/dist/index.css";
-
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
 
-// import JsonViewer from 'vue-json-viewer';
-// import 'vue-json-viewer/style.css';
+import AutoHeight from './compoents/transition/AutoHeight.vue';
+
+import { ArrowRight } from '@element-plus/icons-vue';
 
 import '../../iconfont/iconfont';
 import '../../iconfont/iconfont.css';
@@ -55,7 +84,7 @@ import '../../iconfont/iconfont.css';
 
 export default {
   name: "MapboxLayerView",
-  components: { Layer, Source, VueJsonPretty },
+  components: { Layer, Source, VueJsonPretty, AutoHeight, ArrowRight },
   props: {
     customStyle: {
       type: Object
@@ -175,7 +204,8 @@ export default {
       margin-left: 5px;
       width: 100%;
       position: relative;
-      
+      justify-content: space-between;
+      cursor: pointer;
       .text {
         font-weight: bold;
         font-size: 14px;
@@ -252,6 +282,30 @@ export default {
       color: var(--el-color-primary);
       font-style: normal;
     }
+  }
+}
+
+.collapse {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.3);
+  
+  .el-collapse-item {
+    background: #fff;
+    min-height: 40px;
+    line-height: 40px;
+    // border-radius: 4px;
+    border-bottom: 1px solid #ccc;
+  }
+  .right {
+    margin-right: 10px;
+  }
+  .icon {
+    transition: all 0.5s;
+    font-size: 16px;
+  }
+  .active {
+    transform: rotate(90deg);
   }
 }
 </style>
