@@ -158,7 +158,7 @@ export default {
  
   .mp-key-value {
     margin-left: 10px;
-    height: 32px;
+    min-height: 32px;
     display: flex;
     column-gap: 5px;
     margin-top: 3px;

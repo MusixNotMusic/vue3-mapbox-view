@@ -5,6 +5,8 @@ import Boolean  from '../compoents/base/Boolean.vue';
 import Color from '../compoents/base/Color.vue';
 import StringSelect from '../compoents/base/StringSelect.vue';
 
+import Vector2Editor from '../compoents/tool/Vector2Editor.vue';
+
 import ArrayString from '../compoents/base/ArrayString.vue';
 
 import Bounds  from '../compoents/base/Bounds.vue'
@@ -167,9 +169,11 @@ export class ExpressionType {
     }
 }
 
-export class Vecter2Type {
+export class Vecter2Type extends Type {
     constructor() {
+        super();
         this.value = [0, 0];
+        this.component = markRaw(Vector2Editor);
     }
 }
 export class Vecter3Type {
