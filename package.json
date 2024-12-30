@@ -2,14 +2,15 @@
   "name": "@cdyw/vue3-mapbox-view",
   "author": "MusixNotMusic<https://github.com/MusixNotMusic>",
   "private": false,
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "dist/@cdyw/vue3-mapbox-view.umd.js",
   "module": "dist/@cdyw/vue3-mapbox-view.es.js",
   "exports": {
     "./dist/style.css": "./dist/style.css",
     ".": {
       "import": "./dist/@cdyw/vue3-mapbox-view.es.js",
-      "require": "./dist/@cdyw/vue3-mapbox-view.umd.js"
+      "require": "./dist/@cdyw/vue3-mapbox-view.umd.js",
+      "types": "./dist/vue3-mapbox-view.d.ts"
     }
   },
   "type": "module",
