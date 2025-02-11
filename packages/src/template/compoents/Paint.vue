@@ -137,7 +137,7 @@ export default {
 <style lang="scss" scoped>
 @use '../style.scss';
 .mp-layer-paint-layout-style {
-  width: -webkit-fill-available;
+  width: 100%;
   transition: max-height 0.3s ease-out;
 
   
@@ -172,6 +172,7 @@ export default {
     position: relative;
   }
   .mp-key-value {
+    width: calc(100% - 10px);
     margin-left: 10px;
     min-height: 32px;
     display: flex;
@@ -229,10 +230,11 @@ export default {
 
 .icon {
   position: absolute;
-  top: -4px;
+  top: -10px;
   right: 1px;
   cursor: pointer;
   font-size: 12px;
+  z-index: 2;
 }
 
 .icon:hover {

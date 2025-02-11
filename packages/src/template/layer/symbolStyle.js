@@ -55,7 +55,7 @@ export const symbolStyle = {
         "icon-pitch-alignment":     TextAlignmentType,    // "map" | "viewport" | "auto"
         "text-pitch-alignment":     TextAlignmentType,    // "map" | "viewport" | "auto"
         "text-rotation-alignment":  TextAlignmentType,   //  "map" | "viewport" | "auto"
-        "text-field":               ArrayStringType,
+        "text-field":               ExpressionType,
         "text-font":                ArrayStringType,
         "text-size":                NumberType,
         "text-max-width":           NumberType,

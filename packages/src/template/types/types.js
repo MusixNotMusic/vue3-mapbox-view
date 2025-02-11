@@ -8,6 +8,7 @@ import StringSelect from '../compoents/base/StringSelect.vue';
 import Vector2Editor from '../compoents/tool/Vector2Editor.vue';
 
 import ArrayString from '../compoents/base/ArrayString.vue';
+import ExpressionVue from '../compoents/base/Expression.vue';
 
 import Bounds  from '../compoents/base/Bounds.vue'
 
@@ -17,6 +18,8 @@ import Layout  from '../compoents/Layout.vue';
 import Paint  from '../compoents/Paint.vue';
 
 import { markRaw } from 'vue';
+
+import { isNumber, isString, isArray } from 'lodash'
 
 
 
@@ -29,10 +32,24 @@ export class Type {
             this.value = val;
         }
     }
+}
 
-    // get value() {
-    //     return this.value
-    // }
+
+export class Expression {
+    constructor() {
+        this.value = null;
+    }
+    setValue (val) {
+        if (this.value !== val) {
+            this.value = val;
+        }
+
+        if (isArray(this.value)) {
+            this.component = this.components[1];
+        } else {
+            this.component = this.components[0];
+        }
+    }
 }
 
 export class UnknowType extends Type{
@@ -43,18 +60,20 @@ export class UnknowType extends Type{
     }
 }
 
-export class StringType extends Type{
+export class StringType extends Expression{
     constructor(value) {
         super();
         this.value = value || '';
+        this.components = [markRaw(String), markRaw(ExpressionVue)];
         this.component = markRaw(String);
     }
 }
 
-export class NumberType extends Type{
+export class NumberType extends Expression{
     constructor(value) {
         super();
         this.value = value || 0;
+        this.components = [markRaw(String), markRaw(ExpressionVue)];
         this.component = markRaw(Number);
     }
 }
@@ -155,17 +174,20 @@ export class TransitionType{
     }
 }
 
-export class ColorType extends Type{
+export class ColorType extends Expression{
     constructor() {
         super();
         this.value = '#fff';
         this.component = markRaw(Color);
+        this.components = [markRaw(Color), markRaw(ExpressionVue)];
     }
 }
 
-export class ExpressionType {
+export class ExpressionType extends Expression {
     constructor() {
-        this.value = '#fff';
+        super();
+        this.value = '';
+        this.components = [markRaw(String), markRaw(ExpressionVue)];
     }
 }
 

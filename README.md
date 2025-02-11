@@ -1,5 +1,63 @@
 # Vue3 MapboxGL 地图瓦片加载器
 
+## 安装
+```
+npm install @cdyw/vue3-mapbox-view
+```
+
+## 示例代码
+```js
+<script>
+import { ref, onMounted } from 'vue'
+
+import { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView } from '../dist/@cdyw/vue3-mapbox-view.es.js';
+import '../dist/style.css';
+
+import { mapLayerList } from '../packages/src/data';
+
+export default {
+  name: 'App',
+  components: { MapboxView, MapboxViewPanel, MapboxLayerManage, MapboxLayerView },
+  setup() {
+    const layerList = ref(mapLayerList);
+    
+    const loaded = ref(false);
+    const mapIns = ref(null);
+
+    const mapLoaded = ({ map, mapModel }) => {
+      console.log('mapLoaded ==>', map, mapModel);
+
+      window.mapIns = map;
+      loaded.value = true;
+      mapIns.value = map;
+    }
+
+    onMounted(() => {})
+    return {
+      mapIns,
+      loaded,
+      layerList,
+      mapLoaded,
+    }
+  }
+} 
+
+</script>
+
+<template>
+  <MapboxView :loadDem="true"  @mapLoaded="mapLoaded"></MapboxView>
+  <MapboxLayerView v-if="loaded" :mapIns="mapIns"></MapboxLayerView>
+</template>
+
+<style scoped>
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+</style>
+
+```
+
 
 ## props
 
@@ -28,6 +86,15 @@ mapId: {
         bearing: 0.8,
         curve: 1,
         center: [103.980679, 30.482537],
+        projection: 'mercator',
+        style: {
+            version: 8,
+            name: "china",
+            glyphs: "/{fontstack}/{range}.pbf",
+            sources: {},
+            layers: []
+        }, // 自定义样式  mapbox://styles/mapbox/streets-v9
+        accessToken: null // mapbox token 使用mapboxgl 图层样式 token必须携带
       }
     },
     loadDem: {

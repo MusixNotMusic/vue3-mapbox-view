@@ -2,18 +2,20 @@ import mapboxgl from "mapbox-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './style/mapbox-popup.scss';
 
-export const accessToken = 'pk.eyJ1IjoibXVzaXgiLCJhIjoiY2xwM29ldXpuMTYyMzJvcXU3ZWRyZHMzeCJ9.NLAhXDinvYbqHq2fPg4z6A'
-mapboxgl.accessToken = accessToken;
-
+// export const accessToken = 'pk.eyJ1IjoibXVzaXgiLCJhIjoiY2xwM29ldXpuMTYyMzJvcXU3ZWRyZHMzeCJ9.NLAhXDinvYbqHq2fPg4z6A'
+// mapboxgl.accessToken = accessToken;
+// window.mapboxgl = mapboxgl;
 import { defaultInitParams, defaultEnableEvent } from './lib/default';
 
 export default class MapboxLayerRender {
 
   constructor(option) {
       this.map = null;
+
       this.mapId = option.mapId;
 
       this.params = Object.assign(defaultInitParams, option.params);
+
       this.enableEvent = Object.assign(defaultEnableEvent, option.enableEvent);
 
       this.mapLoadedCallback = option.mapLoaded;
@@ -21,6 +23,10 @@ export default class MapboxLayerRender {
       this.mapLayerList = option.mapLayerList || [];
 
       this.loadDem = option.loadDem;
+
+      if(option.accessToken) {
+        mapboxgl.accessToken = option.accessToken;
+      }
 
       this.initMap();
   }
@@ -30,16 +36,6 @@ export default class MapboxLayerRender {
     if (this.map) return;
     
     // let mapStyle = 'mapbox://styles/mapbox/streets-v9';
-
-    let mapStyle = {
-      version: 8,
-      name: "china",
-      glyphs: "/{fontstack}/{range}.pbf",
-      sources: {
-      },
-      layers: [
-      ]
-    }
 
     this.map = new mapboxgl.Map({
       container:             this.mapId, // container ID
@@ -52,10 +48,10 @@ export default class MapboxLayerRender {
       antialias:             true,
       attributionControl:    false,
       renderWorldCopies:     false, // 如果为 true ，地图缩小时将渲染多个全局地图的副本。
-      // style:                 mapStyle,
-      style:                 'mapbox://styles/mapbox/satellite-streets-v12',
+      style:                 this.params.style,
       preserveDrawingBuffer: true, // 让html2Canvas可以截到地图，否则为黑屏
       hash:                  false, // sync `center`, `zoom`, `pitch`, and `bearing` with URL
+      projection:            this.params.projection || 'mercator'
     });
 
 
@@ -66,7 +62,6 @@ export default class MapboxLayerRender {
       }
     });
   }
-
 
   setEnableEvent() {
     for (const key in this.enableEvent) {

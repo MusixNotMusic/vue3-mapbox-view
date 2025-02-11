@@ -19,7 +19,12 @@ export default defineConfig({
     rollupOptions: {
       // 把不想打包进你的包的包排除掉
       external: [
-        "vue", "mapbox-gl", "vue3-json-viewer", "element-plus", 'vue-json-pretty'
+        "vue", 
+        "mapbox-gl", 
+        "vue3-json-viewer", 
+        "element-plus",
+        'vue-json-pretty',
+        "jsonlint-mod-fixed"
       ],
       output: {
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
@@ -28,7 +33,8 @@ export default defineConfig({
           'mapbox-gl': 'mapbox-gl',
           "vue3-json-viewer": 'JsonViewer',
           "element-plus": "elementPlus",
-          'vue-json-pretty': 'VueJsonPretty'
+          'vue-json-pretty': 'VueJsonPretty',
+          "jsonlint-mod-fixed": 'jsonlint'
         },
       },
     },
